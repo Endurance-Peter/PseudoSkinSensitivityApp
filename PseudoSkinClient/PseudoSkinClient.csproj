@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ScottPlot.WPF" Version="4.1.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PseudoSkinApplication\PseudoSkinApplication.csproj" />
+  </ItemGroup>
+
 </Project>

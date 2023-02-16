@@ -9,7 +9,12 @@ namespace PseudoSkinServices.CalculatePseudoskin
     public class PseudoskinCalculation
     {
 
-        public PseudoskinCalculation(double horizontalPermeability, double verticalPermeability, double wellboreRadius, double reservoirThickness,
+        public PseudoskinCalculation()
+        {
+           
+        }
+
+        public double Calculate(double horizontalPermeability, double verticalPermeability, double wellboreRadius, double reservoirThickness,
             double distanceFromTopOfSandToTopOfOpenInterver, double perforationInterver)
         {
             _horizontalPermeability = horizontalPermeability;
@@ -18,10 +23,8 @@ namespace PseudoSkinServices.CalculatePseudoskin
             _y = distanceFromTopOfSandToTopOfOpenInterver;
             _reservoirThickness = reservoirThickness;
             _perforationInterver = perforationInterver;
-        }
 
-        public double Calculate()
-        {
+
             _zm = _y + (_perforationInterver / 2);
 
             if (_y == 0)

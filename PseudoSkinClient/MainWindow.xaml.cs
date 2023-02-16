@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PseudoSkinApplication.RunSensititvity;
+using PseudoSkinClient.ChartServices;
+using PseudoSkinServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +27,18 @@ namespace PseudoSkinClient
         public MainWindow()
         {
             InitializeComponent();
+            
+
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var serviceProvider = RegisterServices.RegisterAllServices();
+            Service = serviceProvider.GetService<IAllService>();
+            var run = new RunSensitivityHandler();
+            run.RunSensitivity(Service);
+
+            RegisterServices.ShowView(serviceProvider);
+        }
+        public IAllService? Service { get; set; }
     }
 }
