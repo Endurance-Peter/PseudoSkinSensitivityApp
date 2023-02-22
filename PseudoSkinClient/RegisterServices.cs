@@ -15,10 +15,10 @@ namespace PseudoSkinServices
         {
             var services = new ServiceCollection();
 
-            services.AddDbContext<DbContextStore>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAllService, Service>();
-            services.AddScoped<ChatView>();
+            //services.AddDbContext<DbContextStore>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IAllService, Service>();
+            //services.AddScoped<ChatView>();
 
             return services.BuildServiceProvider();
         }

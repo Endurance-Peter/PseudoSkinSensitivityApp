@@ -1,0 +1,13 @@
+﻿<Window x:Class="PseudoSkinClient.Views.SplashScreenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PseudoSkinClient.Views"
+        mc:Ignorable="d"
+        Title="SplashScreenView" AllowsTransparency="True"
+        WindowStyle="None" ShowInTaskbar="False" Width="500" Height="300"  ResizeMode="NoResize" SnapsToDevicePixels="True">
+    <Grid>
+        <Image Source="sendilogo.png" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Uniform"/>
+    </Grid>
+</Window>

@@ -1,4 +1,6 @@
-﻿using PseudoSkinDataAccess.Repositories;
+﻿using NHibernate;
+using PseudoSkinDataAccess.NhibernateConfigurations;
+using PseudoSkinDataAccess.Repositories;
 using PseudoSkinDomain.Models;
 using System;
 using System.Threading.Tasks;
@@ -7,40 +9,54 @@ namespace PseudoSkinDataAccess.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContextStore _dbContext;
-        public UnitOfWork(DbContextStore dbContext)
+        private ITransaction transaction;
+        private ISession session;
+        public UnitOfWork(INHibernateHelper nHibernateHelper)
         {
-            _dbContext = dbContext;
+            session = nHibernateHelper.OpenSession();
+            transaction = session.BeginTransaction();
             InitilizedRepository();
         }
 
         private void InitilizedRepository()
         {
-            PseudoSkin = new Repository<PseudoSkin>(_dbContext);
-            RegressionResult = new Repository<RegressionResult>(_dbContext);
+            PseudoSkin = new Repository<PseudoSkin>(session);
+            RegressionResult = new Repository<RegressionResult>(session);
         }
         public Repository<PseudoSkin> PseudoSkin { get ; set ; }
         public Repository<RegressionResult> RegressionResult { get ; set ; }
 
         public void Dispose()
         {
-            _dbContext.DisposeAsync();
+            session.Close();
+            session = null;
         }
 
         public Task SaveChangesAsync()
         {
             try
             {
-                _dbContext.SaveChangesAsync();
+                if (transaction.IsActive) transaction.Commit();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw new ArgumentException(ex.Message);
+                if (transaction.IsActive) transaction.Rollback();
+            }
+            return Task.CompletedTask;
+        }
+
+        public void Rollback()
+        {
+            try
+            {
+                if (transaction.IsActive) transaction.Rollback();
+            }
+            finally
+            {
+                transaction.Rollback();
             }
 
-
-            return Task.CompletedTask;
         }
     }
 }

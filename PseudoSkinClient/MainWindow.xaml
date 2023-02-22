@@ -4,11 +4,71 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PseudoSkinClient"
-        mc:Ignorable="d"
+        xmlns:prism="http://prismlibrary.com/"
+        mc:Ignorable="d" Background="AliceBlue"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Width="100" Height="50" Background="red" Click="Button_Click">
-            <TextBlock Text="Run Sensititvity" />
-        </Button>
+        <Grid.Resources>
+            <Style TargetType="TabItem">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Background" Value="WhiteSmoke"/>
+                <Setter Property="Foreground" Value="#326ba8"/>
+                <Setter Property="Padding" Value="1"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#326ba8"/>
+                        <Setter Property="BorderBrush" Value="#FF3C7FB1"/>
+                        <Setter Property="Foreground" Value="#326ba8"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#326ba8"/>
+                        <Setter Property="BorderBrush" Value="#FF3C7FB1"/>
+                        <Setter Property="Foreground" Value="#326ba8"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <!--<RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>-->
+        </Grid.RowDefinitions>
+        <!--<StackPanel Grid.Row="0" Grid.Column="0" Margin="10" Background="#326ba8"/>-->
+        <!--<TabControl Grid.Row="0" Grid.ColumnSpan="2" Height="100" Margin="80,0,0,0">
+            <TabItem Header="Home" Width="60" Height="30" Padding="1"/>
+            <TabItem Header="Sensitivity Analysis" prism:RegionManager.RegionName="SensitivityAnalysisRibbon"/>
+            <TabItem Header="Regression Analysis" prism:RegionManager.RegionName="RegressionAnalysisRibbon"/>
+        </TabControl>-->
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="2" Margin="80,0,0,0" prism:RegionManager.RegionName="TabRibbonRegion"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Width="130" Height="300" Background="WhiteSmoke">
+            <Button HorizontalAlignment="Left" Grid.Row="0"
+                            Height="25"
+                            Width="25" 
+                            VerticalAlignment="Center" Margin="2"
+                            Cursor="Hand" Background="WhiteSmoke" BorderThickness="0"
+                            Command="{Binding CreateSkinCommand}" IsEnabled="{Binding ShouldEnableSkin}">
+                <!--<Image Source="pack://application:,,,/Add16.png"  Stretch="Uniform"/>-->
+                <Image Source="pack://application:,,,/Add16.png" />
+
+
+            </Button>
+            <ContentControl  prism:RegionManager.RegionName="ExplorerRegion" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,10,50" Background="WhiteSmoke">
+            <ContentControl prism:RegionManager.RegionName="RibbonRegion" Margin="10"/>
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="10" />
+        </StackPanel>
+       
     </Grid>
 </Window>

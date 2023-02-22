@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="PseudoSkinClient.Views.CreatePseudoSkinView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PseudoSkinClient.Views"
+        mc:Ignorable="d"
+        Height="650" Width="400">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="BorderThickness" Value="1.5"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="BorderBrush" Value="#6e97c2"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
+
+                <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                        <Setter Property="BorderBrush" Value="LightBlue"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Margin" Value="0 5 5 5"/>
+                <Setter Property="Background" Value="#326ba8"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#326ba8"/>
+                        <Setter Property="BorderBrush" Value="#FF3C7FB1"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+
+        </Grid.Resources>
+        <StackPanel Margin="15">
+            <GroupBox
+                  BorderBrush="LightGray" Header="Name" Margin="2"
+                              BorderThickness="1" Padding="0,5,5,0">
+                <TextBox Text="{Binding Name}"/>
+            </GroupBox>
+
+            <GroupBox
+                  BorderBrush="LightGray" Header="Model" Margin="2"
+                              BorderThickness="1" Padding="0,5,5,0">
+                <TextBlock Text="Ode Model"/>
+            </GroupBox>
+
+            <GroupBox
+                  BorderBrush="LightGray" Header="Reservoir Parameters" Margin="2"
+                              BorderThickness="1" Padding="0,5,5,0">
+                <StackPanel>
+                    <TextBlock Text="Vertical Permeability (kv, mD)" Margin="0,2"/>
+                    <TextBox Text="{Binding VerticalPermeability}"/>
+                    <TextBlock Text="Horizontal Permeability (kv, mD)" Margin="0,2"/>
+                    <TextBox Text="{Binding HorizontalPermeability}"/>
+                    <TextBlock Text="Reservoir Thickness (h, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding ReservoirThickness}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                  BorderBrush="LightGray" Header="Well Parameters" Margin="2"
+                              BorderThickness="1" Padding="0,5,5,0">
+                <StackPanel>
+                    <TextBlock Text="Wellbore Radius (rw, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding WellboreRadius}"/>
+                    <TextBlock Text="Length of Perforated Interver (hp, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding LenghtOfPerforationInterval}"/>
+                    <TextBlock Text="Distance between top of sand to top of perforation (y, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding DistanceFromTopOfSandToTopOfPerforation}"/>
+                </StackPanel>
+            </GroupBox>
+            <TextBlock Text="***Fill all entery" 
+                       Visibility="Collapsed" 
+                       Foreground="Red" FontStyle="Italic"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Calculate" Command="{Binding CalculateCommand}"/>
+                <Button Content="Save" Command="{Binding SaveCommand}"/>
+            </StackPanel>
+            <GroupBox
+                  BorderBrush="LightGray" Header="Pseudoskin Result" Margin="2" Foreground="Red"
+                              BorderThickness="1" Padding="0,5,5,0">
+                <TextBox Text="{Binding PseudoskinResult, Mode=TwoWay}" IsEnabled="False"/>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

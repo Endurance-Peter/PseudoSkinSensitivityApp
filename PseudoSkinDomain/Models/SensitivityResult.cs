@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PseudoSkinDomain.Models
 {
@@ -12,6 +13,7 @@ namespace PseudoSkinDomain.Models
         public virtual double StartValue { get; set; }
         public virtual double StepValue { get; set; }
         public virtual double StopValue { get; set; }
+        public virtual SensititvityVariable SensititvityVariable { get; set; }
         public virtual PseudoSkin PseudoSkin { get; set; }
         public virtual IEnumerable<Result> Results => _results;
         private readonly ISet<Result> _results = new HashSet<Result>();

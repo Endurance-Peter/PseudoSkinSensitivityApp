@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="ScottPlot" Version="4.1.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PseudoSkinDomain\PseudoSkinDomain.csproj" />
   </ItemGroup>
 
 </Project>

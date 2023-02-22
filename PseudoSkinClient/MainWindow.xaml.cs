@@ -32,13 +32,6 @@ namespace PseudoSkinClient
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var serviceProvider = RegisterServices.RegisterAllServices();
-            Service = serviceProvider.GetService<IAllService>();
-            var run = new RunSensitivityHandler();
-            run.RunSensitivity(Service);
-
-            RegisterServices.ShowView(serviceProvider);
         }
-        public IAllService? Service { get; set; }
     }
 }

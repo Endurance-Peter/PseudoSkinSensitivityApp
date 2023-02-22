@@ -1,4 +1,5 @@
-﻿using PseudoSkinServices;
+﻿using Prism.Services.Dialogs;
+using PseudoSkinServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,6 @@ namespace PseudoSkinClient.ChartServices
         }
 
         public IAllService Service { get; set; }
+        
     }
 }

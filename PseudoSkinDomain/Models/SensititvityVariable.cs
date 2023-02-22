@@ -2,9 +2,9 @@
 {
     public enum SensititvityVariable
     {
-        Anisotropy,
-        PenetrationRatio,
-        WellboreRadius,
-        DistanceFromTopOfSandToMidOfPerforation
+        Anisotropy = 0,
+        PenetrationRatio =1,
+        WellboreRadius = 2,
+        DistanceFromTopOfSandToMidOfPerforation =3
     }
 }

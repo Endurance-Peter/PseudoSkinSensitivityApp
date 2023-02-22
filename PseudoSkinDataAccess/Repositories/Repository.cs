@@ -1,49 +1,62 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using NHibernate;
+using PseudoSkinDomain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PseudoSkinDataAccess.Repositories
 {
-    public class Repository<T> : IRepository<T> where T: class
+    public class Repository<T> : IRepository<T> where T: BaseEntity
     {
-        private DbSet<T> _dbContext;
-        public Repository(DbContextStore dbContext)
+        private readonly ISession _session;
+        public Repository(ISession session)
         {
-            _dbContext = dbContext.Set<T>();
+            _session = session;
         }
-        public Task Add(T model)
+        public void Add(T model)
         {
-            _dbContext.Add(model);
-            return Task.CompletedTask;
-        }
-
-        public Task Delete(T model)
-        {
-            _dbContext.Remove(model);
-
-            return Task.CompletedTask;
+            _session.Save(model);
         }
 
-        public async Task<List<T>> FetchAll()
+        public void Delete(Guid id)
         {
-            var results = _dbContext.AsQueryable();
-
-            return await results.ToListAsync();
+            var model = _session.Query<T>().FirstOrDefault(x => x.Id == id);
+            _session.Delete(model);
         }
 
-        public async Task<T> FetchById(Guid id)
+        public Task<IEnumerable<T>> GetAll()
         {
-            var results = await _dbContext.FindAsync(id);
+            var models = _session.Query<T>().AsEnumerable<T>();
 
-            return results;
+            return Task.FromResult(models);
         }
 
-        public Task Update(T model)
+        public Task<T> GetById(Guid id)
         {
-            _dbContext.Update(model);
+            var model = _session.Query<T>().FirstOrDefault(x => x.Id == id);
 
-            return Task.CompletedTask;
+            return Task.FromResult(model);
+        }
+
+        public Task<T> GetByName(Expression<Func<T, bool>> predicate)
+        {
+            var pseudoskin = _session.Query<T>().FirstOrDefault(predicate);
+
+            return Task.FromResult(pseudoskin);
+        }
+
+        public Task<bool> NameExist(Expression<Func<T,bool>> predicate)
+        {
+            var isNameExist = _session.Query<T>().Any(predicate);
+
+            return Task.FromResult(isNameExist);
+        }
+
+        public void Update(T model)
+        {
+            _session.SaveOrUpdate(model);
         }
     }
 }
