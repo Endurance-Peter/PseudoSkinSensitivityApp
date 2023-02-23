@@ -9,14 +9,14 @@ namespace PseudoSkinClient.ChartServices
     {
         private void SetTitleAndLebel()
         {
-            ChatArea.Title(Title);
+            ChatArea?.Title(Title);
             ChatArea.XLabel(XLabel);
             ChatArea.YLabel(YLabel);
         }
         private void AddScatterPlot(double[] xData, double[] yData)
         {
             
-            ChatArea.AddScatter(xData, yData, lineWidth: 2, markerSize: 5);
+            ChatArea?.AddScatter(xData, yData, lineWidth: 2, markerSize: 5);
         }
 
         public void SaveChat(string fileName)
@@ -26,7 +26,7 @@ namespace PseudoSkinClient.ChartServices
 
         public void SetAxisLimits(double xlBound, double xuBound, double ylBound, double yuBound)
         {
-            ChatArea.SetAxisLimits(xlBound, xuBound, ylBound, yuBound);
+            ChatArea?.SetAxisLimits(xlBound, xuBound, ylBound, yuBound);
         }
 
         public void PlotChat()
@@ -35,11 +35,11 @@ namespace PseudoSkinClient.ChartServices
             AddScatterPlot(XData, YData);
         }
 
-        public string XLabel { get; set; }
-        public string YLabel { get; set; }
-        public string Title { get; set; }
-        public Plot ChatArea { get; set; }
-        public double[] XData { get; set; }
-        public double[] YData { get; set; }
+        public string? XLabel { get; set; }
+        public string? YLabel { get; set; }
+        public string? Title { get; set; }
+        public Plot? ChatArea { get; set; }
+        public double[]? XData { get; set; }
+        public double[]? YData { get; set; }
     }
 }

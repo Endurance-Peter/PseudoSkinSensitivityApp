@@ -13,30 +13,79 @@ using PseudoSkinServices.Utility;
 using Prism.Events;
 using PseudoSkinApplication.Events;
 using PseudoSkinServices;
+using Prism.Services.Dialogs;
+using Prism.Ioc;
+using PseudoSkinServices.ChartServices;
+using System.Windows;
+using PseudoSkinServices.CalculatePseudoskin;
 
 namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 {
     public class AnisotropySensitivityViewModel : BindableBase
     {
-        private readonly IRegionManager regionManager;
+        private readonly IDialogService dialogService;
+        private readonly IChartService chartService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMediator mediator;
         private readonly IEventAggregator eventAggregator;
 
-        public AnisotropySensitivityViewModel(IRegionManager regionManager,IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator)
+        public AnisotropySensitivityViewModel(IDialogService dialogService, IChartService chartService,
+                                IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator)
         {
             CalculateCommand = new DelegateCommand(CalculateAction);
             PlotCommand = new DelegateCommand(PlotAction);
-            this.regionManager = regionManager;
+            ExportCommand = new DelegateCommand(ExportToExcelAction);
+            this.dialogService = dialogService;
+            this.chartService = chartService;
             this.unitOfWork = unitOfWork;
             this.mediator = mediator;
             this.eventAggregator = eventAggregator;
             eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Subscribe(SelectedPseudoskinAction);
         }
 
+        private void ExportToExcelAction()
+        {
+            var excelService = new ExcelExportService();
+            var pseudoskinresult = GetPseudoskinParameters();
+            var parameterResults = GetParameterResults();
+            excelService.ExportToExcel("INVESTIGATING THE IMPACT OF RESERVOIR AND WELL PARAMETERS", pseudoskinresult, parameterResults);
+        }
+
+        private Dictionary<string, object> GetPseudoskinParameters()
+        {
+            var parameter = unitOfWork.PseudoSkin.GetByName(x=>x.Name == selectedPseudoskin).Result;
+            var results = new Dictionary<string, object>();
+            results.Add(nameof(parameter.Name), parameter.Name);
+            results.Add(nameof(parameter.DateCreated), parameter.DateCreated);
+            results.Add(nameof(parameter.HorizontalPermeability), parameter.HorizontalPermeability);
+            results.Add(nameof(parameter.VerticalPermeability), parameter.VerticalPermeability);
+            results.Add(nameof(parameter.ReservoirThickness), parameter.ReservoirThickness);
+            results.Add(nameof(parameter.WellboreRadius), parameter.WellboreRadius);
+            results.Add(nameof(parameter.LenghtOfPerforationInterval), parameter.LenghtOfPerforationInterval);
+            results.Add(nameof(parameter.DistanceFromTopOfSandToTopOfPerforation), parameter.DistanceFromTopOfSandToTopOfPerforation);
+
+            return results;
+        }
+
+        private Dictionary<string, double[]> GetParameterResults()
+        {
+            var results = new Dictionary<string, double[]>();
+            results.Add("Serial No.", Templates.Select(x => x.SerialNo).ToArray());
+            results.Add("Anisotropy Value", Templates.Select(x => x.ParameterValue).ToArray());
+            results.Add("Pseudoskin Value", Templates.Select(x => x.Pseudoskin).ToArray());
+
+            return results;
+        }
+
         private void PlotAction()
         {
-            
+            chartService.Title = "Anisotropy";
+            chartService.XLabel = "Anisotropy Value";
+            chartService.YLabel = "Pseudoskin Value";
+            chartService.XData = Templates.Select(x => x.ParameterValue).ToArray();
+            chartService.YData = Templates.Select(x => x.Pseudoskin).ToArray();
+
+            dialogService.Show("ChatView");
         }
 
         private void CalculateAction()
@@ -46,9 +95,15 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
                 StartValue = startValue,
                 StepVlue = stepValue,
                 StopVlue = stopValue,
-                SensititvityVariable = PseudoSkinDomain.Models.SensititvityVariable.Anisotropy,
+                SensititvityVariable = SensititvityVariable.Anisotropy,
                 PseudoskinName = SelectedPseudoskin
             };
+
+            if (SelectedPseudoskin == null)
+            {
+                MessageBox.Show("You haven't selected your Pseusoskin");
+                return;
+            }
             var response = mediator.ExecuteCommand<RunSensitivityCommand, RunSensitivityCommandHandler, List<RunSensitivityDto>>(command, new RunSensitivityCommandHandler(unitOfWork));
 
             SetItemSource(response.Result);
@@ -56,7 +111,8 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 
         private void SetItemSource(List<RunSensitivityDto> runSensitivities)
         {
-            foreach(var result in runSensitivities)
+            Templates.Clear();
+            foreach (var result in runSensitivities)
             {
                 Templates.Add(new RunSensitivityDto
                 {
@@ -101,5 +157,6 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
         }
         public DelegateCommand CalculateCommand { get; }
         public DelegateCommand PlotCommand { get; }
+        public DelegateCommand ExportCommand { get; }
     }
 }

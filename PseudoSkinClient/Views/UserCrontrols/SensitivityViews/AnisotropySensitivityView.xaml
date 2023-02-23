@@ -107,6 +107,13 @@
                         Margin="10,30,0,0"
                             Command="{Binding PlotCommand}"/>
                 </StackPanel>
+                <StackPanel>
+                    <Button Content="Expot" 
+                        Width="100"
+                        Height="27"
+                        Margin="10,30,0,0"
+                            Command="{Binding ExportCommand}"/>
+                </StackPanel>
 
             </StackPanel>
 
@@ -156,7 +163,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Anysotropy"
+                    <DataGridTextColumn Header="Anisotropy Value"
                                     Binding="{Binding Path=ParameterValue}"
                                     Width="*"
                                     >
@@ -167,7 +174,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="PseudoSkin Value"
+                    <DataGridTextColumn Header="Pseudoskin Value"
                                     Width="*"
                                     Binding="{Binding Path=Pseudoskin}">
                         <DataGridTextColumn.ElementStyle>

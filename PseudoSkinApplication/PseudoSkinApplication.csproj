@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PseudoSkinDataAccess\PseudoSkinDataAccess.csproj" />
-    <ProjectReference Include="..\PseudoSkinServices\PseudoSkinServices.csproj" />
+    <ProjectReference Include="..\PseudoskinService\PseudoskinService.csproj" />
   </ItemGroup>
 
 </Project>

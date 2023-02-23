@@ -1,9 +1,11 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.Views;
 using PseudoSkinClient.Views.UserCrontrols;
 using PseudoSkinClient.Views.UserCrontrols.SensitivityViews;
+using PseudoSkinServices.ChartServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,7 @@ namespace PseudoSkinClient
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterScoped<IChartService, ChartService>();
             containerRegistry.RegisterForNavigation<RibbonView>("Sensitivity");
             containerRegistry.RegisterForNavigation<RibbonView>("regression");
             containerRegistry.RegisterForNavigation<AnisotropySensitivityView>("AnisotropySensitivityView");

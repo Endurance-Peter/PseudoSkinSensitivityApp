@@ -12,6 +12,7 @@ using PseudoSkinDataAccess;
 using PseudoSkinDataAccess.UnitOfWorks;
 using PseudoSkinServices;
 using PseudoSkinServices.ChartServices;
+using PseudoSkinServices.Utility;
 using System.Windows;
 
 namespace PseudoSkinClient
@@ -23,13 +24,10 @@ namespace PseudoSkinClient
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //var services = new ServiceCollection();
-            //services.AddDbContext<DbContextStore>(x=>x.UseSqlite("PseudoskinDb.db"));
-            containerRegistry.Register<IChartService, ChartService>();
-            containerRegistry.Register<IAllService, Service>();
             containerRegistry.RegisterDialog<ChatView>();
 
             containerRegistry.RegisterDialog<CreatePseudoSkinView>();
+            containerRegistry.RegisterScoped<IMediator, Mediator>();
         }
         protected override Window CreateShell()
         {
@@ -40,7 +38,7 @@ namespace PseudoSkinClient
             var catalog = new ModuleCatalog();
             catalog.AddModule<DataAccessModule>();
             catalog.AddModule<ClientModule>();
-            catalog.AddModule<ServiceModule>();
+            //catalog.AddModule<ServiceModule>();
             return catalog;
         }
 

@@ -64,13 +64,9 @@ namespace PseudoSkinApplication.RunSensititvity
             var pseudoSkin = new PseudoskinCalculation(skin.HorizontalPermeability, skin.VerticalPermeability,
                         skin.WellboreRadius, skin.ReservoirThickness, skin.DistanceFromTopOfSandToTopOfPerforation, skin.LenghtOfPerforationInterval);
 
-            for (int j = 0; j < 4; j++)
+            for (int i = 0; i < x.Length; i++)
             {
-                for (int i = 0; i < x.Length; i++)
-                {
-                    y[i] = pseudoSkin.Calculate(x[i], (SensititvityVariable)j);
-                }
-
+                y[i] = pseudoSkin.Calculate(x[i], command.SensititvityVariable);
             }
 
             //Itme1 :x----> ParameterValue, Item2: y-------> PseudoskinValue

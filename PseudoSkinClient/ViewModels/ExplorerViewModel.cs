@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using PseudoSkinApplication.CreatePseudoskin;
 using PseudoSkinApplication.Events;
 using PseudoSkinDataAccess.UnitOfWorks;
 using System;
@@ -23,6 +24,12 @@ namespace PseudoSkinClient.ViewModels
             this.unitOfWork = unitOfWork;
             this.eventAggregator = eventAggregator;
             PupolateExplorerView();
+            eventAggregator.GetEvent<CreatePseudoskinResultEvent>().Subscribe(AddNewCreatedSkinToListAction);
+        }
+
+        private void AddNewCreatedSkinToListAction(Result result)
+        {
+            FetchedPseudoskins.Add(result.Name);
         }
 
         private void PupolateExplorerView()

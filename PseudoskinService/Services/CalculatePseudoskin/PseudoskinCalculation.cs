@@ -1,5 +1,4 @@
-﻿using PseudoSkinDomain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace PseudoSkinServices.CalculatePseudoskin
 {
+    public enum SensititvityVariable
+    {
+        Anisotropy = 0,
+        PenetrationRatio = 1,
+        WellboreRadius = 2,
+        DistanceFromTopOfSandToMidOfPerforation = 3
+    }
     public class PseudoskinCalculation
     {
 
@@ -39,6 +45,20 @@ namespace PseudoSkinServices.CalculatePseudoskin
             }
         }
 
+        private void SetSensitivityParameter(double parameterValue, SensititvityVariable variable)
+        {
+            if(variable == SensititvityVariable.WellboreRadius)
+            {
+                _wellboreRadius = parameterValue;
+                _correctedWellboreRadius = _wellboreRadius * Math.Exp(0.2126 * ((_zm / _reservoirThickness) + 2.753));
+            }
+            else if(variable == SensititvityVariable.DistanceFromTopOfSandToMidOfPerforation)
+            {
+                _zm = parameterValue;
+                _correctedWellboreRadius = _wellboreRadius * Math.Exp(0.2126 * ((_zm / _reservoirThickness) + 2.753));
+            }
+        }
+
         public double Calculate()
         {
             double pseudoskin = CalculateAll();
@@ -53,13 +73,13 @@ namespace PseudoSkinServices.CalculatePseudoskin
                     _anisotropy = 1 / parameterValue;
                     return CalculateAll();
                 case SensititvityVariable.WellboreRadius:
-                    _wellboreRadius = parameterValue;
+                    SetSensitivityParameter(parameterValue,variable);
                     return CalculateAll();
                 case SensititvityVariable.PenetrationRatio:
-                    _penetratioRatio = parameterValue;
+                    _penetratioRatio = 1/parameterValue;
                     return CalculateAll();
                 case SensititvityVariable.DistanceFromTopOfSandToMidOfPerforation:
-                    _zm = parameterValue;
+                    SetSensitivityParameter(parameterValue, variable);
                     return CalculateAll();
                 default:
                     break;

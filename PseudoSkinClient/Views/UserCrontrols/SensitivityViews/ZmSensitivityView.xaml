@@ -60,14 +60,9 @@
                    DockPanel.Dock="Top"
                          HorizontalAlignment="Left"
                          Width="100"
-                         Height="30"
+                         Height="30" Text="{Binding StartValue}"
                          VerticalContentAlignment="Center"
                          Margin="2 0">
-                        <TextBox.Text>
-                            <Binding Path="MinimumNumberOfApprovals"
-                            UpdateSourceTrigger="PropertyChanged" >
-                            </Binding>
-                        </TextBox.Text>
                     </TextBox>
                 </StackPanel>
                 <StackPanel>
@@ -79,14 +74,9 @@
                    DockPanel.Dock="Top"
                          HorizontalAlignment="Left"
                          Width="100"
-                         Height="30"
+                         Height="30" Text="{Binding StepValue}"
                          VerticalContentAlignment="Center"
                          Margin="2 0">
-                        <TextBox.Text>
-                            <Binding Path="MinimumNumberOfApprovals"
-                            UpdateSourceTrigger="PropertyChanged" >
-                            </Binding>
-                        </TextBox.Text>
                     </TextBox>
                 </StackPanel>
                 <StackPanel>
@@ -98,14 +88,9 @@
                    DockPanel.Dock="Top"
                          HorizontalAlignment="Left"
                          Width="100"
-                         Height="30"
+                         Height="30" Text="{Binding StopValue}"
                          VerticalContentAlignment="Center"
                          Margin="2 0">
-                        <TextBox.Text>
-                            <Binding Path="MinimumNumberOfApprovals"
-                            UpdateSourceTrigger="PropertyChanged" >
-                            </Binding>
-                        </TextBox.Text>
                     </TextBox>
                 </StackPanel>
                 <StackPanel>
@@ -121,6 +106,13 @@
                         Height="27"
                         Margin="10,30,0,0"
                             Command="{Binding PlotCommand}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Button Content="Expot" 
+                        Width="100"
+                        Height="27"
+                        Margin="10,30,0,0"
+                            Command="{Binding ExportCommand}"/>
                 </StackPanel>
 
             </StackPanel>
@@ -172,7 +164,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Zm Value"
-                                    Binding="{Binding Path=TemplateName}"
+                                    Binding="{Binding Path=ParameterValue}"
                                     Width="*"
                                     >
                         <DataGridTextColumn.ElementStyle>
@@ -182,9 +174,9 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="PseudoSkin Value"
+                    <DataGridTextColumn Header="Pseudoskin Value"
                                     Width="*"
-                                    Binding="{Binding Path=PseudoSkinValues, StringFormat=d}">
+                                    Binding="{Binding Path=Pseudoskin}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Margin" Value="2, 0"/>
