@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 
 namespace PseudoSkinClient.ViewModels.SensitivityViewModels
@@ -8,7 +9,36 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
         public RibbonTabRegressionViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
+            AnisotropyCheckedCommand = new DelegateCommand<string>(CheckedAction);
+            WellboreRadiusCheckedCommand = new DelegateCommand<string>(CheckedAction);
+            PenetratioRatioCheckedCommand = new DelegateCommand<string>(CheckedAction);
+            ZmCheckedCommand = new DelegateCommand<string>(CheckedAction);
         }
+        private void CheckedAction(string parameter)
+        {
+            if (parameter == nameof(IsAnisotropy))
+            {
+                regionManager.RequestNavigate("ContentRegion", "AnisotropyRegressionView");
+            }
+            else if (parameter == nameof(IsWellboreRadius))
+            {
+                regionManager.RequestNavigate("ContentRegion", "WellboreRadiusRegressionView");
+            }
+            else if (parameter == nameof(IsPenetratioRatio))
+            {
+                regionManager.RequestNavigate("ContentRegion", "PenetrationRatioRegressionView");
+            }
+            else
+            {
+                regionManager.RequestNavigate("ContentRegion", "ZmRegressionView");
+
+            }
+
+        }
+        public DelegateCommand<string> AnisotropyCheckedCommand { get; set; }
+        public DelegateCommand<string> WellboreRadiusCheckedCommand { get; set; }
+        public DelegateCommand<string> PenetratioRatioCheckedCommand { get; set; }
+        public DelegateCommand<string> ZmCheckedCommand { get; set; }
         private string isZmValue;
 
         private bool isAnisotropy;
@@ -19,7 +49,7 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             {
                 SetProperty(ref isAnisotropy, value);
 
-                regionManager.RequestNavigate("ContentRegion", "AnisotropyRegressionView");
+               
             }
         }
         private string isWellboreRadius;
@@ -29,7 +59,7 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             set
             {
                 SetProperty(ref isWellboreRadius, value);
-                regionManager.RequestNavigate("ContentRegion", "WellboreRadiusRegressionView");
+               
             }
         }
 
@@ -42,7 +72,7 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             set
             {
                 SetProperty(ref isPenetrationRatio, value);
-                regionManager.RequestNavigate("ContentRegion", "PenetrationRatioRegressionView");
+               
             }
         }
         public string IsZmValue
@@ -51,7 +81,7 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             set
             {
                 SetProperty(ref isZmValue, value);
-                regionManager.RequestNavigate("ContentRegion", "ZmRegressionView");
+                
             }
 
         }
