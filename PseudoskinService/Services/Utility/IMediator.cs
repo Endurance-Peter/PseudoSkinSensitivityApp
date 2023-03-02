@@ -11,8 +11,7 @@ namespace PseudoSkinServices.Utility
     {
         Task<TResult> ExecuteCommand<TCommand, TCommandHandler, TResult>(TCommand command, TCommandHandler handler)
             where TCommand : Command
-            where TCommandHandler : CommandHandler<TCommand, TResult>
-            where TResult : class;
+            where TCommandHandler : CommandHandler<TCommand, TResult>;
 
 
     }
@@ -21,13 +20,12 @@ namespace PseudoSkinServices.Utility
         public Task<TResult> ExecuteCommand<TCommand, TCommandHandler, TResult>(TCommand command, TCommandHandler handler) 
             where TCommand: Command
             where TCommandHandler: CommandHandler<TCommand, TResult>
-            where TResult: class
         {
             return handler.HandleAsync(command);
         }
     }
 
-    public abstract class CommandHandler<TCommand, TResult> where TCommand : Command where TResult : class
+    public abstract class CommandHandler<TCommand, TResult> where TCommand : Command 
     {
         public abstract Task<TResult> HandleAsync(TCommand command);
            

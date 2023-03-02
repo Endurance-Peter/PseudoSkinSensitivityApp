@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Add16.png" />
     <None Remove="Views\UserCrontrols\checkout.png" />
   </ItemGroup>
 
@@ -20,10 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PseudoSkinApplication\PseudoSkinApplication.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\UserCrontrols\RegressionViews\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +43,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>

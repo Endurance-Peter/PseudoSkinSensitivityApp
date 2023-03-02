@@ -2,103 +2,33 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PseudoSkinClient">
 
-    <Style TargetType="Button" x:Key="add-user-style">
-        <Setter Property="Background" Value="{StaticResource Deck.Background}"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Height" Value="25"/>
-        <Style.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="3" />
-            </Style>
-        </Style.Resources>
-    </Style>
-
-    <Style TargetType="ComboBox" x:Key="user-type-style">
-        <Setter Property="Height" Value="25"/>
-        <Style.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="3" />
-            </Style>
-        </Style.Resources>
-    </Style>
-
-    <Style x:Key="btn-styles" TargetType="Button">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver"  Value="True">
-                <Setter Property="Foreground" Value="Transparent"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type TextBox}" x:Key="multi-user-textbox-style">
-        <Setter Property="BorderThickness" Value="1.5"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="BorderBrush" Value="#6e97c2"/>
-
-        <Style.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="3" />
-            </Style>
-        </Style.Resources>
-
-        <Style.Triggers>
-            <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                <Setter Property="BorderBrush" Value="LightBlue"/>
-            </Trigger>
-
-            <Trigger Property="Validation.HasError" Value="True">
-
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                        Path=(Validation.Errors)[0].ErrorContent}" />
-
-                <Setter Property="Validation.ErrorTemplate">
-                    <Setter.Value >
-                        <ControlTemplate>
-                            <DockPanel>
-                                <Border BorderBrush="red" BorderThickness="1.5" CornerRadius="3">
-                                    <AdornedElementPlaceholder x:Name="controlWithError"/>
-                                </Border>
-                                <TextBlock Foreground="red" FontSize="20" FontFamily="Segoe UI" Margin="3,0,0,0"/>
-                            </DockPanel>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    
-    <ControlTemplate x:Key="CustomAdminButton" TargetType="{x:Type ButtonBase}">
-        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="Button.IsDefaulted" Value="True">
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Cursor" Value="Hand" />
-                <Setter Property="Background" TargetName="border" Value="#326ba8"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" TargetName="border" Value="#2968ab"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-            </Trigger>
-            <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                <Setter Property="Foreground" Value="#FF838383"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
+    <Style x:Key="ModernButtonStyle" TargetType="Button">
+    <Setter Property="Background" Value="#2196F3" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="10,5" />
+    <Setter Property="Margin" Value="5" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+                <Grid>
+                    <Border x:Name="ButtonBackground" Background="{TemplateBinding Background}" CornerRadius="2" />
+                    <ContentPresenter x:Name="ButtonContent" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="ButtonBackground" Property="Background" Value="#1976D2" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="ButtonBackground" Property="Background" Value="#0D47A1" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
 
 </ResourceDictionary>

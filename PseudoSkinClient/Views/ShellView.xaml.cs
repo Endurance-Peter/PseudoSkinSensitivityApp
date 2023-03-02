@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Prism.Ioc;
+using PseudoSkinClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,19 @@ namespace PseudoSkinClient.Views
     /// </summary>
     public partial class ShellView : Window
     {
-        public ShellView()
+        private ShellViewModel _viewmodel;
+
+        public ShellView(IContainerProvider containerProvider)
         {
             InitializeComponent();
+            _viewmodel = containerProvider.Resolve<ShellViewModel>();
+            DataContext = _viewmodel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _viewmodel.OpenExplorerAction();
+            explorerItems.Visibility = explorerItems.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

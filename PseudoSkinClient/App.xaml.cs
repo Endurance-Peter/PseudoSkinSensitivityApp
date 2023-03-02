@@ -4,9 +4,11 @@ using Prism.Modularity;
 using Prism.Mvvm;
 using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.ViewModels;
+using PseudoSkinClient.ViewModels.RegressionViewModels;
 using PseudoSkinClient.ViewModels.SensitivityViewModels;
 using PseudoSkinClient.Views;
 using PseudoSkinClient.Views.UserCrontrols;
+using PseudoSkinClient.Views.UserCrontrols.RegressionViews;
 using PseudoSkinClient.Views.UserCrontrols.SensitivityViews;
 using PseudoSkinDataAccess;
 using PseudoSkinDataAccess.UnitOfWorks;
@@ -31,7 +33,8 @@ namespace PseudoSkinClient
         }
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            //return Container.Resolve<MainWindow>();
+            return Container.Resolve<ShellView>();
         }
         protected override IModuleCatalog CreateModuleCatalog()
         {
@@ -46,13 +49,23 @@ namespace PseudoSkinClient
         {
             base.ConfigureViewModelLocator();
             ViewModelLocationProvider.Register<ExplorerView, ExplorerViewModel>();
-            ViewModelLocationProvider.Register<MainWindow, MainWindowViewModel>();
+            //ViewModelLocationProvider.Register<MainWindow, MainWindowViewModel>();
+            //ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<AnisotropySensitivityView, AnisotropySensitivityViewModel>();
             ViewModelLocationProvider.Register<PenetrationRatioSensitivityView, PenetrationRatioSensitivityViewModel>();
-            ViewModelLocationProvider.Register<RibbonView, RibbonViewModel>();
             ViewModelLocationProvider.Register<WellboreRadiusSensitivityView, WellboreRadiusSensitivityViewModel>();
             ViewModelLocationProvider.Register<ZmSensitivityView, ZmSensitivityViewModel>();
+            
+            ViewModelLocationProvider.Register<AnisotropyRegressionView, AnisotropyRegressionViewModel>();
+            ViewModelLocationProvider.Register<PenetrationRatioRegressionView, PenetrationRatioRegressionViewModel>();
+            ViewModelLocationProvider.Register<WellboreRegressionView, WellboreRadiusRegressionViewModel>();
+            ViewModelLocationProvider.Register<ZmRegressionView, ZmRegressionViewModel>();
+
+
+            ViewModelLocationProvider.Register<RibbonView, RibbonViewModel>();
             ViewModelLocationProvider.Register<TabRibbonView, TabRibbonViewModel>();
+            ViewModelLocationProvider.Register<RibbonTabSensitivityView, RibbonTabSensitivityViewModel>();
+            ViewModelLocationProvider.Register<RibbonTabRegressionView, RibbonTabRegressionViewModel>();
         }
     }
 }

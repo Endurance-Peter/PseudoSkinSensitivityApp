@@ -4,6 +4,7 @@ using Prism.Regions;
 using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.Views;
 using PseudoSkinClient.Views.UserCrontrols;
+using PseudoSkinClient.Views.UserCrontrols.RegressionViews;
 using PseudoSkinClient.Views.UserCrontrols.SensitivityViews;
 using PseudoSkinServices.ChartServices;
 using System;
@@ -27,7 +28,9 @@ namespace PseudoSkinClient
 
             regionManager.RegisterViewWithRegion<TabRibbonView>("TabRibbonRegion");
             regionManager.RegisterViewWithRegion<ExplorerView>("ExplorerRegion");
-            
+            regionManager.RegisterViewWithRegion<HomeView>("ContentRegion");
+            regionManager.RegisterViewWithRegion<RibbonTabSensitivityView>("SensitivityRibbonTab");
+            regionManager.RegisterViewWithRegion<RibbonTabRegressionView>("RegressionRibbonTab"); 
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -39,6 +42,14 @@ namespace PseudoSkinClient
             containerRegistry.RegisterForNavigation<PenetrationRatioSensitivityView>("PenetrationRatioSensitivityView");
             containerRegistry.RegisterForNavigation<WellboreRadiusSensitivityView>("WellboreRadiusSensitivityView");
             containerRegistry.RegisterForNavigation<ZmSensitivityView>("ZmSensitivityView");
+            
+            containerRegistry.RegisterForNavigation<AnisotropyRegressionView>("AnisotropyRegressionView");
+            containerRegistry.RegisterForNavigation<PenetrationRatioRegressionView>("PenetrationRatioRegressionView");
+            containerRegistry.RegisterForNavigation<WellboreRegressionView>("WellboreRadiusRegressionView");
+            containerRegistry.RegisterForNavigation<ZmRegressionView>("ZmRegressionView");
+
+            //containerRegistry.RegisterForNavigation<RegressionView>("RegressionView");
+            containerRegistry.RegisterForNavigation<CreatePseudoSkinView>("CreatePseudoSkinView");
            
         }
     }

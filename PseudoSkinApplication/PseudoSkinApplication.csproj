@@ -5,8 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PseudoSkinDataAccess\PseudoSkinDataAccess.csproj" />
     <ProjectReference Include="..\PseudoskinService\PseudoskinService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FetchAllPseudoskinNames\" />
   </ItemGroup>
 
 </Project>

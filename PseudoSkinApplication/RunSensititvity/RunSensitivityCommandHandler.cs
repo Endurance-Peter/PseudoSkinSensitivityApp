@@ -1,6 +1,5 @@
 ﻿using PseudoSkinDataAccess.UnitOfWorks;
 using PseudoSkinDomain.Models;
-using PseudoSkinServices;
 using PseudoSkinServices.CalculatePseudoskin;
 using PseudoSkinServices.Utility;
 using System;
@@ -25,7 +24,36 @@ namespace PseudoSkinApplication.RunSensititvity
 
             var results = RunSensitivity(command, fetchPseudoskin);
 
-            return SetValues(results);
+            var sensitivityResults = fetchPseudoskin.SensitivityResults.Where(x => x.SensititvityVariable == command.SensititvityVariable.ConvertTo());
+
+            foreach (var result in sensitivityResults)
+            {
+                fetchPseudoskin.RemoveSensitivityResult(result);
+            }
+
+            for (int i = 0; i < results.Item1.Length; i++)
+            {
+                var result = new SensitivityResult
+                {
+                    SensititvityVariable = command.SensititvityVariable.ConvertTo(),
+                    StartValue = command.StartValue,
+                    StepValue = command.StepVlue,
+                    StopValue = command.StopVlue
+                };
+
+                result.AddResult(new Result
+                {
+                    PseudoskinValue = results.Item2[i],
+                    SensitivityValue = results.Item1[i]
+                });
+                fetchPseudoskin.AddSensitivityResult(result);
+            }
+
+            unitOfWork.PseudoSkin.Update(fetchPseudoskin);
+            var commitStatus = unitOfWork.SaveChangesAsync();
+
+
+            return commitStatus.IsCompleted ? SetValues(results) : throw new ArgumentException("Unable to save to database");
         }
 
         private List<RunSensitivityDto> SetValues(Tuple<double[], double[]> results)
@@ -78,6 +106,5 @@ namespace PseudoSkinApplication.RunSensititvity
             return (int)Math.Ceiling((stop - start) / step) + 1;
         }
 
-        
     }
 }

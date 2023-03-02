@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="PseudoSkinClient.Views.UserCrontrols.RegressionViews.AnisotropyRegressionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PseudoSkinClient.Views.UserCrontrols.RegressionViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="1.2*"/>
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Row="1">
+        <DataGrid ItemsSource="{Binding Templates}" AutoGenerateColumns="False" AlternatingRowBackground="#d2e7f7"
+                      x:Name="templateDatagrid" Margin="10"
+                  GridLinesVisibility="None" RowHeight="35"
+                  SelectedItem="{Binding SelectedTemplate}"
+                  VerticalContentAlignment="Center" VerticalAlignment="Stretch"
+                  IsReadOnly="True">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Foreground" Value="Black"/>
+
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Background" Value="#4197d9" />
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </Style.Triggers>
+
+
+                </Style>
+
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Serial No."
+                                    Binding="{Binding Path=SerialNo}"
+                                    Width="60"
+                                    >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2, 0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Anisotropy Value"
+                                    Binding="{Binding Path=ParameterValue}"
+                                    Width="auto"
+                                    >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2, 0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Sensitivity"
+                                    Width="0.5*"
+                                    Binding="{Binding Path=Pseudoskin}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2, 0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Regression"
+                                    Width="0.5*"
+                                    Binding="{Binding Path=Pseudoskin}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2, 0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+    <WpfPlot Grid.Column="1" Name="myChatView" Margin="20"/>
+    </Grid>
+</UserControl>

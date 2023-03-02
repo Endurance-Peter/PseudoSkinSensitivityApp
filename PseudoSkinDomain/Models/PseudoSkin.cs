@@ -10,7 +10,12 @@ namespace PseudoSkinDomain.Models
     {
         public virtual void AddSensitivityResult(SensitivityResult sensitivityResult)
         {
+            sensitivityResult.PseudoSkin = this;
             _sensitivityResults.Add(sensitivityResult);
+        }
+        public virtual void RemoveSensitivityResult(SensitivityResult sensitivityResult)
+        {
+            _sensitivityResults.Remove(sensitivityResult);
         }
         public virtual void ClearSensitivityResults()
         {
@@ -19,7 +24,12 @@ namespace PseudoSkinDomain.Models
 
         public virtual void AddRegressionResult(RegressionResult regressionResult)
         {
+            regressionResult.PseudoSkin = this;
             _regressionResults.Add(regressionResult);
+        }
+        public virtual void RemoveRegressionResult(RegressionResult regressionResult)
+        {
+            _regressionResults.Remove(regressionResult);
         }
         public virtual void ClearRegressionResults()
         {

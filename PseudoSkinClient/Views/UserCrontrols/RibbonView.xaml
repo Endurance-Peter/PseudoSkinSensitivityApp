@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="800">
     <Grid>
-        <Grid.Resources>
+        <!--<Grid.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="#44a4eb" />
                 <Setter Property="BorderThickness" Value="1" />
@@ -39,11 +39,11 @@
                                     <Setter Property="BorderThickness" Value="1" />
                                 </Trigger>
 
-                                <!--<Trigger Property="IsMouseOver" Value="True">
+                                --><!--<Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="BorderBrush" Value="#202020" />
                                     <Setter Property="Background" Value="#44a4eb" />
                                     <Setter Property="BorderThickness" Value="2" />
-                                </Trigger>-->
+                                </Trigger>--><!--
 
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="BorderBrush" Value="#44a4eb" />
@@ -75,7 +75,7 @@
                 <Image Source="checkout.png" 
                        Height="15"  Stretch="Uniform"
                        />
-                <!--Visibility="{Binding IsAnisotropyVisible}"/>-->
+                --><!--Visibility="{Binding IsAnisotropyVisible}"/>--><!--
                 <Button Content="Anisotropy" 
                         Command="{Binding AnisotropyCommand}"
                         VerticalAlignment="Center"/>
@@ -83,7 +83,7 @@
             <StackPanel Background="Transparent" Orientation="Horizontal" Margin="5">
                 <Image Source="checkout.png" 
                        Height="15"  Stretch="Uniform"/>
-                <!--Visibility="{Binding IsWellboreRadiusVisible}"/>-->
+                --><!--Visibility="{Binding IsWellboreRadiusVisible}"/>--><!--
                     
                 <Button Content="Wellbore Radius" 
                         Command="{Binding WellboreRadiusCommand}"
@@ -92,7 +92,7 @@
             <StackPanel Background="Transparent" Orientation="Horizontal" Margin="5">
                 <Image Source="checkout.png" 
                        Height="15"  Stretch="Uniform"/>
-                <!--Visibility="{Binding IsPenetrationRatioVisible}"/>-->
+                --><!--Visibility="{Binding IsPenetrationRatioVisible}"/>--><!--
                 <Button Content="Penetration Ratio" 
                         Command="{Binding PenetrationRatioCommand}"
                         VerticalAlignment="Center"/>
@@ -100,11 +100,19 @@
             <StackPanel Background="Transparent" Orientation="Horizontal" Margin="5">
                 <Image Source="checkout.png" 
                        Height="15"  Stretch="Uniform"/>
-                <!--Visibility="{Binding IsZmValueVisible}"/>-->
+                --><!--Visibility="{Binding IsZmValueVisible}"/>--><!--
                 <Button Content="Zm Value" 
                         Command="{Binding ZmCommand}"
                         VerticalAlignment="Center"/>
             </StackPanel>
+        </StackPanel>-->
+
+
+        <StackPanel Orientation="Horizontal" Background="Wheat">
+            <RadioButton Content="Anisotropy" Margin="10" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding IsAnisotropy}"/>
+            <RadioButton Content="Wellbore Radius" Margin="10" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding IsWellboreRadius}"/>
+            <RadioButton Content="Penetratio Ratio" Margin="10" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding IsPenetratioRatio}"/>
+            <RadioButton Content="Zm of perforation" Margin="10" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsChecked="{Binding IsZmValue}"/>
         </StackPanel>
     </Grid>
 </UserControl>
