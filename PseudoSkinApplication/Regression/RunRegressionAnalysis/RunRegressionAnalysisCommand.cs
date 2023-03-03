@@ -39,7 +39,7 @@ namespace PseudoSkinApplication.Regression.RunRegressionAnalysis
             var fetchPseudoskin = await unitOfWork.PseudoSkin.GetByName(x => x.Name == command.PseudoskinName);
             if (fetchPseudoskin == null) throw new ArgumentException($"{command.PseudoskinName} not found");
 
-            var sensitivityResults = fetchPseudoskin.SensitivityResults.ToDictionary(x => x.SensititvityVariable, x=>x.Results);//GroupBy(x => x.SensititvityVariable);
+            var sensitivityResults = fetchPseudoskin.SensitivityResults.ToList();
             fetchPseudoskin.ClearRegressionResults();
 
             var regressionDto = new Dictionary<SensititvityVariable, RunRegressionDto>();
@@ -60,14 +60,16 @@ namespace PseudoSkinApplication.Regression.RunRegressionAnalysis
             {
                 var regressionResult = new PseudoSkinDomain.Models.RegressionResult
                 {
-                    SensititvityVariable = sensitivityResult.Key,
+                    SensititvityVariable = sensitivityResult.SensititvityVariable,
                     RegressionValue = command.StartValue,
                     RegressionIncreamentValue = command.StepValue
                 };
 
                 var parameterValue = new List<double>();
                 var pseudoskinValue = new List<double>();
-                foreach (var value in sensitivityResult.Value)
+
+                var results = sensitivityResult.Results;
+                foreach (var value in results)
                 {
                     parameterValue.Add(value.SensitivityValue);
                     pseudoskinValue.Add(value.PseudoskinValue);
@@ -76,13 +78,11 @@ namespace PseudoSkinApplication.Regression.RunRegressionAnalysis
                 var degree = RegressionAnalysis.FindDegreeOfBestFit(parameterValue.ToArray(), pseudoskinValue.ToArray());
                 var coefficients = RegressionAnalysis.FitPolynomial(parameterValue.ToArray(), pseudoskinValue.ToArray(), degree);
                 var regressPseudoskinValue = RegressionAnalysis.EvaluatePolynomial(x, coefficients);
-                var rSquareValue = RegressionAnalysis.CalculateRSquared(pseudoskinValue.ToArray(), regressPseudoskinValue);
 
-                regressionDto.Add(sensitivityResult.Key, new RunRegressionDto
+                regressionDto.Add(sensitivityResult.SensititvityVariable, new RunRegressionDto
                 {
                     ParameterRegressValues = x,
                     ResgresionPredictedPseudoskinValue = regressPseudoskinValue,
-                    RSquareValue = rSquareValue
                 });
 
                 int i = 0;
@@ -93,8 +93,8 @@ namespace PseudoSkinApplication.Regression.RunRegressionAnalysis
                         PseudoskinValue = regressionValue,
                         SensitivityValue = x[i++]
                     });
-                    fetchPseudoskin.AddRegressionResult(regressionResult);
                 }
+                fetchPseudoskin.AddRegressionResult(regressionResult);
             }
 
             unitOfWork.PseudoSkin.Update(fetchPseudoskin);

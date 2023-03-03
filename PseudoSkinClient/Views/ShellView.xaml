@@ -6,7 +6,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:PseudoSkinClient.Views"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="SENDI 6.0 Application" Height="1000" Width="1200">
+        Title="SENDI 6.0 Application" Height="1000" Width="1300">
     <Window.Resources>
         <Style TargetType="{x:Type TabControl}">
             <Setter Property="BorderThickness" Value="0" />
@@ -93,41 +93,7 @@
             </Style.Resources>
         </Style>
 
-        <Style TargetType="ListBox">
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="#ccc" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="SelectionMode" Value="Single" />
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Padding" Value="5" />
-                        <Setter Property="Margin" Value="0,0,0,5" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="border" Background="Transparent" BorderThickness="0">
-                                        <ContentPresenter />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="#2196F3" />
-                                            <Setter Property="Foreground" Value="White" />
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="#eee" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
+        
 
     </Window.Resources>
     <Grid>
@@ -173,19 +139,7 @@
                 </TabItem>
                 <TabItem Header="Ranking" >
                     <GroupBox Header="Rank Pseudoskin Parameters" Width="900" HorizontalAlignment="Left" >
-                        <StackPanel Background="Wheat">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Start Value" Margin="10"/>
-                                <TextBox Width="50" Margin="10"/>
-                                <TextBlock Text="Step Value" Margin="10"/>
-                                <TextBox Width="50" Margin="10"/>
-                                <TextBlock Text="Stop Value" Margin="10"/>
-                                <TextBox Width="50" Margin="10"/>
-                            </StackPanel>
-
-                            <Button Content="Regress All" HorizontalAlignment="Left" Margin="10"/>
-
-                        </StackPanel>
+                        <ContentControl prism:RegionManager.RegionName="RankingRibbonRegion"/>
                     </GroupBox>
                 </TabItem>
                 <TabItem Header="View Results" >

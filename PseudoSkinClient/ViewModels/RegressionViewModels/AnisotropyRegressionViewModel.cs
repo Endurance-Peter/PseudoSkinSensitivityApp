@@ -1,8 +1,6 @@
-﻿using Prism.Commands;
-using Prism.Events;
+﻿using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
-using Prism.Regions;
 using PseudoSkinApplication;
 using PseudoSkinApplication.Events;
 using PseudoSkinApplication.Regression.RunRegressionAnalysis;
@@ -10,12 +8,8 @@ using PseudoSkinDataAccess.UnitOfWorks;
 using PseudoskinService.Services.Regression;
 using PseudoSkinServices;
 using PseudoSkinServices.ChartServices;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PseudoSkinClient.ViewModels.RegressionViewModels
@@ -36,12 +30,13 @@ namespace PseudoSkinClient.ViewModels.RegressionViewModels
 
         private void SetChartService(double[] x, double[] y, double[] y1)
         {
+            chartService.YArray.Clear();
             chartService.Title = "Regressed Anisotropy";
             chartService.XLabel = "Anisotropy Value";
             chartService.YLabel = "Pseudoskin Value";
             chartService.XData = x;
-            chartService.YData = y;
-            chartService.Y1Data = y1;
+            chartService.YArray.Add("Sensitivity", y);
+            chartService.YArray.Add("Regression", y1);
 
             eventAggregator.GetEvent<AnisotropyChartEvent>().Publish();
         }
@@ -60,7 +55,13 @@ namespace PseudoSkinClient.ViewModels.RegressionViewModels
                 var fetchSeudoskin = unitOfWork.PseudoSkin.GetByName(x => x.Name == selectedPseudoskin.Name);
 
                 var regressionDto = new RegressionDto();
-                var sensitivity = fetchSeudoskin.Result.SensitivityResults.Where(x=> x.SensititvityVariable == PseudoSkinDomain.Models.SensititvityVariable.Anisotropy).SelectMany(x => x.Results);
+                var sensitivity = fetchSeudoskin.Result.SensitivityResults.Where(x=> x.SensititvityVariable == PseudoSkinDomain.Models.SensititvityVariable.Anisotropy).SelectMany(x => x.Results).ToList();
+
+                if(sensitivity.Count == 0)
+                {
+                    MessageBox.Show("You have not run Anisotropy sensitivity");
+                    return;
+                }
                 var skinValue = sensitivity.Select(x => x.PseudoskinValue).ToArray();
                 var paramValue = sensitivity.Select(x => x.SensitivityValue).ToArray();
                 var resgresionPredictedPseudoskinValue = RegressionAnalysis.FindPredictedBestFits(paramValue, skinValue);

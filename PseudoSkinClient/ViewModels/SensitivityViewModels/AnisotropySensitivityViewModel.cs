@@ -18,6 +18,7 @@ using Prism.Ioc;
 using PseudoSkinServices.ChartServices;
 using System.Windows;
 using PseudoSkinServices.CalculatePseudoskin;
+using PseudoSkinApplication;
 
 namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 {
@@ -28,9 +29,10 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
         private readonly IUnitOfWork unitOfWork;
         private readonly IMediator mediator;
         private readonly IEventAggregator eventAggregator;
+        private readonly IContainerProvider containerProvider;
 
         public AnisotropySensitivityViewModel(IDialogService dialogService, IChartService chartService,
-                                IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator)
+                                IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator, IContainerProvider containerProvider)
         {
             CalculateCommand = new DelegateCommand(CalculateAction);
             PlotCommand = new DelegateCommand(PlotAction);
@@ -40,7 +42,8 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             this.unitOfWork = unitOfWork;
             this.mediator = mediator;
             this.eventAggregator = eventAggregator;
-            eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Subscribe(SelectedPseudoskinAction);
+            this.containerProvider = containerProvider;
+            //eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Subscribe(SelectedPseudoskinAction);
         }
 
         private void ExportToExcelAction()
@@ -90,16 +93,17 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 
         private void CalculateAction()
         {
+            var selectedPseudoskin = containerProvider.Resolve<SelectedPseudoskin>();
             var command = new RunSensitivityCommand
             {
                 StartValue = startValue,
                 StepVlue = stepValue,
                 StopVlue = stopValue,
                 SensititvityVariable = SensititvityVariable.Anisotropy,
-                PseudoskinName = SelectedPseudoskin
+                PseudoskinName = selectedPseudoskin.Name
             };
 
-            if (SelectedPseudoskin == null)
+            if (selectedPseudoskin.Name == null)
             {
                 MessageBox.Show("You haven't selected your Pseusoskin");
                 return;

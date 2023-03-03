@@ -26,7 +26,6 @@ namespace PseudoSkinClient.ViewModels
             this.eventAggregator = eventAggregator;
             eventAggregator.GetEvent<CreatePseudoskinResultEvent>().Subscribe(AddNewCreatedSkinToListAction);
         }
-
         public void OpenExplorerAction()
         {
             unitOfWork = unitOfWork ?? containerProvider.Resolve<IUnitOfWork>();
@@ -64,7 +63,7 @@ namespace PseudoSkinClient.ViewModels
                 SetProperty(ref selectedPseudoskin, value);
                 var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
                 selectedName.Name = selectedPseudoskin;
-                eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Publish(selectedPseudoskin);
+                //eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Publish(selectedPseudoskin);
             }
         }
         public ObservableCollection<string> FetchedPseudoskins { get; set; } = new ObservableCollection<string>();

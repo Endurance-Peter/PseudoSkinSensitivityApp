@@ -38,8 +38,13 @@ namespace PseudoSkinClient.ChartServices
         {
             myChatView.Plot.Clear();
             ChartService.ChatArea = myChatView.Plot;
-            ChartService.PlotChat();
 
+            foreach (var item in ChartService.YArray)
+            {
+                ChartService.AddScatterPlot(ChartService.XData, item.Value, item.Key);
+            }
+
+            ChartService.ChatArea.Legend(location: ScottPlot.Alignment.UpperRight);
             myChatView.Refresh();
         }
 

@@ -34,12 +34,14 @@ namespace PseudoSkinClient.ViewModels.RegressionViewModels
 
         private void SetChartService(double[] x, double[] y, double[] y1)
         {
+            chartService.YArray.Clear();
+
             chartService.Title = "Regressed Zm Value";
             chartService.XLabel = "Anisotropy Value";
             chartService.YLabel = "Pseudoskin Value";
             chartService.XData = x;
-            chartService.YData = y;
-            chartService.Y1Data = y1;
+            chartService.YArray.Add("Sensitivity", y);
+            chartService.YArray.Add("Regression", y1);
 
             eventAggregator.GetEvent<ZmChartEvent>().Publish();
         }
@@ -58,7 +60,13 @@ namespace PseudoSkinClient.ViewModels.RegressionViewModels
                 var fetchSeudoskin = unitOfWork.PseudoSkin.GetByName(x => x.Name == selectedPseudoskin.Name);
 
                 var regressionDto = new RegressionDto();
-                var sensitivity = fetchSeudoskin.Result.SensitivityResults.Where(x => x.SensititvityVariable == PseudoSkinDomain.Models.SensititvityVariable.DistanceFromTopOfSandToMidOfPerforation).SelectMany(x => x.Results);
+                var sensitivity = fetchSeudoskin.Result.SensitivityResults.Where(x => x.SensititvityVariable == PseudoSkinDomain.Models.SensititvityVariable.DistanceFromTopOfSandToMidOfPerforation).SelectMany(x => x.Results).ToList();
+
+                if(sensitivity.Count == 0)
+                {
+                    MessageBox.Show("You have not run Zm sensitivity");
+                    return;
+                }
                 var skinValue = sensitivity.Select(x => x.PseudoskinValue).ToArray();
                 var paramValue = sensitivity.Select(x => x.SensitivityValue).ToArray();
                 var resgresionPredictedPseudoskinValue = RegressionAnalysis.FindPredictedBestFits(paramValue, skinValue);

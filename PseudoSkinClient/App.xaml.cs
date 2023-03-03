@@ -5,10 +5,12 @@ using Prism.Mvvm;
 using PseudoSkinApplication;
 using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.ViewModels;
+using PseudoSkinClient.ViewModels.RankingViewModels;
 using PseudoSkinClient.ViewModels.RegressionViewModels;
 using PseudoSkinClient.ViewModels.SensitivityViewModels;
 using PseudoSkinClient.Views;
 using PseudoSkinClient.Views.UserCrontrols;
+using PseudoSkinClient.Views.UserCrontrols.RankingViews;
 using PseudoSkinClient.Views.UserCrontrols.RegressionViews;
 using PseudoSkinClient.Views.UserCrontrols.SensitivityViews;
 using PseudoSkinDataAccess;
@@ -68,6 +70,9 @@ namespace PseudoSkinClient
             ViewModelLocationProvider.Register<TabRibbonView, TabRibbonViewModel>();
             ViewModelLocationProvider.Register<RibbonTabSensitivityView, RibbonTabSensitivityViewModel>();
             ViewModelLocationProvider.Register<RibbonTabRegressionView, RibbonTabRegressionViewModel>();
+
+            ViewModelLocationProvider.Register<RankingRibbonView, RankingRiboonViewModel>();
+            ViewModelLocationProvider.Register<RankingView, RankingViewModel>();
         }
     }
 }

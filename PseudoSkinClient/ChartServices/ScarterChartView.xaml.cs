@@ -1,6 +1,7 @@
 ﻿using Prism.Events;
 using PseudoSkinApplication.Events;
 using PseudoSkinServices.ChartServices;
+using ScottPlot.Plottable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,33 +20,33 @@ using System.Windows.Shapes;
 namespace PseudoSkinClient.ChartServices
 {
     /// <summary>
-    /// Interaction logic for AnisotropyChartView.xaml
+    /// Interaction logic for ScarterChartView.xaml
     /// </summary>
-    public partial class AnisotropyChartView : UserControl
+    public partial class ScarterChartView : UserControl
     {
         private readonly IEventAggregator eventAggregator;
 
-        public AnisotropyChartView(IEventAggregator eventAggregator, IChartService chartService)
+        public ScarterChartView(IEventAggregator eventAggregator, IChartService chartService)
         {
             InitializeComponent();
-
             this.eventAggregator = eventAggregator;
             ChartService = chartService;
-            eventAggregator.GetEvent<AnisotropyChartEvent>().Subscribe(ChartAction);
+
+            eventAggregator.GetEvent<BarChartEvent>().Subscribe(ChartAction);
         }
 
         private void ChartAction()
         {
-            myChatView.Plot.Clear();
-            ChartService.ChatArea = myChatView.Plot;
+            myChartView.Plot.Clear();
+            ChartService.ChatArea = myChartView.Plot;
 
             foreach (var item in ChartService.YArray)
             {
                 ChartService.AddScatterPlot(ChartService.XData, item.Value, item.Key);
             }
-
+           
             ChartService.ChatArea.Legend(location: ScottPlot.Alignment.UpperRight);
-            myChatView.Refresh();
+            myChartView.Refresh();
         }
 
         public IChartService ChartService { get; }

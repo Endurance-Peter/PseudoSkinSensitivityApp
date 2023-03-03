@@ -19,6 +19,18 @@ namespace PseudoSkinClient.ChartServices
             ChatArea?.AddScatter(xData, yData, lineWidth: 2, markerSize: 5);
         }
 
+        public void AddScatterPlot(double[] xData, double[] yData, string label)
+        {
+            SetTitleAndLebel();
+            ChatArea?.AddScatter(xData, yData, label: label, lineWidth: 2, markerSize: 5);
+        }
+
+        public void AddPiePlot(double[] xData, double[] yData)
+        {
+
+            ChatArea?.AddPie(xData);
+        }
+
         public void SaveChat(string fileName)
         {
             if (ChatArea != null) ChatArea.SaveFig(fileName);
@@ -33,7 +45,6 @@ namespace PseudoSkinClient.ChartServices
         {
             SetTitleAndLebel();
             AddScatterPlot(XData, YData);
-            if (Y1Data?.Length > 0) AddScatterPlot(XData, Y1Data);
         }
 
         public string? XLabel { get; set; }
@@ -42,6 +53,7 @@ namespace PseudoSkinClient.ChartServices
         public Plot? ChatArea { get; set; }
         public double[]? XData { get; set; }
         public double[]? YData { get; set; }
-        public double[]? Y1Data { get; set; }
+        public string[]? Labels { get; set; }
+        public Dictionary<string, double[]> YArray { get; set; } = new Dictionary<string, double[]>();
     }
 }

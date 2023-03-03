@@ -14,29 +14,33 @@ using System.Linq;
 using Prism.Services.Dialogs;
 using System.Windows;
 using PseudoSkinServices.CalculatePseudoskin;
+using PseudoSkinApplication;
+using Prism.Ioc;
 
 namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 {
     public class PenetrationRatioSensitivityViewModel : BindableBase
     {
         private readonly IRegionManager regionManager;
+        private readonly IContainerProvider containerProvider;
         private readonly IDialogService dialogService;
         private readonly IChartService chartService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMediator mediator;
         private readonly IEventAggregator _eventAggregator;
 
-        public PenetrationRatioSensitivityViewModel(IRegionManager regionManager, IDialogService dialogService, IChartService chartService, IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator)
+        public PenetrationRatioSensitivityViewModel(IRegionManager regionManager, IContainerProvider containerProvider,IDialogService dialogService, IChartService chartService, IUnitOfWork unitOfWork, IMediator mediator, IEventAggregator eventAggregator)
         {
             CalculateCommand = new DelegateCommand(CalculateAction);
             PlotCommand = new DelegateCommand(PlotAction);
             this.regionManager = regionManager;
+            this.containerProvider = containerProvider;
             this.dialogService = dialogService;
             this.chartService = chartService;
             this.unitOfWork = unitOfWork;
             this.mediator = mediator;
             this._eventAggregator = eventAggregator;
-            eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Subscribe(SelectedPseudoskinAction);
+            //eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Subscribe(SelectedPseudoskinAction);
         }
 
         private void PlotAction()
@@ -52,16 +56,17 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 
         private void CalculateAction()
         {
+            var selectedPseudoskin = containerProvider.Resolve<SelectedPseudoskin>();
             var command = new RunSensitivityCommand
             {
                 StartValue = startValue,
                 StepVlue = stepValue,
                 StopVlue = stopValue,
                 SensititvityVariable = SensititvityVariable.PenetrationRatio,
-                PseudoskinName = SelectedPseudoskin
+                PseudoskinName = selectedPseudoskin.Name
             };
 
-            if (SelectedPseudoskin == null)
+            if (selectedPseudoskin.Name == null)
             {
                 MessageBox.Show("You haven't selected your Pseusoskin");
                 return;

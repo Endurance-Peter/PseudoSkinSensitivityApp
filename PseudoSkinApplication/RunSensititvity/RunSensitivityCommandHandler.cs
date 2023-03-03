@@ -24,31 +24,32 @@ namespace PseudoSkinApplication.RunSensititvity
 
             var results = RunSensitivity(command, fetchPseudoskin);
 
-            var sensitivityResults = fetchPseudoskin.SensitivityResults.Where(x => x.SensititvityVariable == command.SensititvityVariable.ConvertTo());
-
-            foreach (var result in sensitivityResults)
+            var sensitivityResults = fetchPseudoskin.SensitivityResults.Where(x => x.SensititvityVariable == command.SensititvityVariable.ConvertTo()).ToList();
+            //fetchPseudoskin.ClearSensitivityResults();
+            foreach (var item in sensitivityResults)
             {
-                fetchPseudoskin.RemoveSensitivityResult(result);
+                fetchPseudoskin.RemoveSensitivityResult(item);
             }
+            var result = new SensitivityResult
+            {
+                SensititvityVariable = command.SensititvityVariable.ConvertTo(),
+                StartValue = command.StartValue,
+                StepValue = command.StepVlue,
+                StopValue = command.StopVlue
+            };
 
             for (int i = 0; i < results.Item1.Length; i++)
             {
-                var result = new SensitivityResult
-                {
-                    SensititvityVariable = command.SensititvityVariable.ConvertTo(),
-                    StartValue = command.StartValue,
-                    StepValue = command.StepVlue,
-                    StopValue = command.StopVlue
-                };
 
                 result.AddResult(new Result
                 {
                     PseudoskinValue = results.Item2[i],
                     SensitivityValue = results.Item1[i]
                 });
-                fetchPseudoskin.AddSensitivityResult(result);
+
             }
 
+            fetchPseudoskin.AddSensitivityResult(result);
             unitOfWork.PseudoSkin.Update(fetchPseudoskin);
             var commitStatus = unitOfWork.SaveChangesAsync();
 

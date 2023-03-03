@@ -1,4 +1,6 @@
 ﻿using Prism.Events;
+using PseudoSkinApplication.Regression.RunRegressionAnalysis;
+using PseudoSkinDomain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,17 @@ namespace PseudoSkinApplication.Events
     {
     }
     public class ZmChartEvent : PubSubEvent
+    {
+    }
+    public class PieChartEvent : PubSubEvent
+    {
+    }
+    
+    public class BarChartEvent : PubSubEvent
+    {
+    }
+
+    public class RankingResultEvent : PubSubEvent<Dictionary<SensititvityVariable, RunRegressionDto>>
     {
     }
 }

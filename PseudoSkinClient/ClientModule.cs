@@ -4,6 +4,7 @@ using Prism.Regions;
 using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.Views;
 using PseudoSkinClient.Views.UserCrontrols;
+using PseudoSkinClient.Views.UserCrontrols.RankingViews;
 using PseudoSkinClient.Views.UserCrontrols.RegressionViews;
 using PseudoSkinClient.Views.UserCrontrols.SensitivityViews;
 using PseudoSkinServices.ChartServices;
@@ -31,11 +32,15 @@ namespace PseudoSkinClient
             regionManager.RegisterViewWithRegion<HomeView>("ContentRegion");
             regionManager.RegisterViewWithRegion<RibbonTabSensitivityView>("SensitivityRibbonTab");
             regionManager.RegisterViewWithRegion<RibbonTabRegressionView>("RegressionRibbonTab");
+            regionManager.RegisterViewWithRegion<RankingRibbonView>("RankingRibbonRegion");
 
             regionManager.RegisterViewWithRegion<AnisotropyChartView>("AnisotropyChartRegion");
             regionManager.RegisterViewWithRegion<WellboreRadiusChartView>("ChartWellboreRegion");
             regionManager.RegisterViewWithRegion<PenRatioChartView>("ChartPenRatioRegion");
             regionManager.RegisterViewWithRegion<ZmChartView>("ChartZmRegion");
+
+            regionManager.RegisterViewWithRegion<ScarterChartView>("ScarterChartRegion");
+            regionManager.RegisterViewWithRegion<PieChartView>("PieChartRegion");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -43,6 +48,7 @@ namespace PseudoSkinClient
             containerRegistry.RegisterScoped<IChartService, ChartService>();
             containerRegistry.RegisterForNavigation<RibbonView>("Sensitivity");
             containerRegistry.RegisterForNavigation<RibbonView>("regression");
+            containerRegistry.RegisterForNavigation<RankingView>("RankingView");
 
             containerRegistry.RegisterForNavigation<AnisotropySensitivityView>("AnisotropySensitivityView");
             containerRegistry.RegisterForNavigation<PenetrationRatioSensitivityView>("PenetrationRatioSensitivityView");
