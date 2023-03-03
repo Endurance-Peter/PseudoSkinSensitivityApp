@@ -31,6 +31,11 @@ namespace PseudoSkinClient
             regionManager.RegisterViewWithRegion<HomeView>("ContentRegion");
             regionManager.RegisterViewWithRegion<RibbonTabSensitivityView>("SensitivityRibbonTab");
             regionManager.RegisterViewWithRegion<RibbonTabRegressionView>("RegressionRibbonTab");
+
+            regionManager.RegisterViewWithRegion<AnisotropyChartView>("AnisotropyChartRegion");
+            regionManager.RegisterViewWithRegion<WellboreRadiusChartView>("ChartWellboreRegion");
+            regionManager.RegisterViewWithRegion<PenRatioChartView>("ChartPenRatioRegion");
+            regionManager.RegisterViewWithRegion<ZmChartView>("ChartZmRegion");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -48,6 +53,7 @@ namespace PseudoSkinClient
             containerRegistry.RegisterForNavigation<PenetrationRatioRegressionView>("PenetrationRatioRegressionView");
             containerRegistry.RegisterForNavigation<WellboreRegressionView>("WellboreRadiusRegressionView");
             containerRegistry.RegisterForNavigation<ZmRegressionView>("ZmRegressionView");
+            //containerRegistry.RegisterForNavigation<ChatView>("ChartView");
 
             //containerRegistry.RegisterForNavigation<RegressionView>("RegressionView");
             containerRegistry.RegisterForNavigation<CreatePseudoSkinView>("CreatePseudoSkinView");

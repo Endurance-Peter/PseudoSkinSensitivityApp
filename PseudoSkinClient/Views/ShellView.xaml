@@ -75,8 +75,8 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="20"/>
             <Setter Property="Margin" Value="0 5 5 5"/>
             <Setter Property="Background" Value="#326ba8"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -138,16 +138,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button VerticalAlignment="Bottom" Click="Button_Click"/>
+            <Button VerticalAlignment="Bottom" Click="Button_Click" Background="White" Width="60" Margin="10,0,0,0" BorderBrush="LightGray">
+                <Path Data="M0,0 L100,0 M0,10 L100,10 M0,20 L100,20" Stroke="#326ba8" StrokeThickness="1" />
+            </Button>
             <TabControl Margin="10" Height="130">
                 <TabItem Header="Home" >
                     <GroupBox Header="Create Pseudoskin" Width="900">
-                        <Button Content="Create"  Command="{Binding CreatePseudoskinCommand}"
-                            HorizontalAlignment="Left"/>
+                        <StackPanel Background="Wheat">
+                            <Button Content="Create"  Command="{Binding CreatePseudoskinCommand}"
+                            HorizontalAlignment="Left"
+                             Margin="10,20,0,0"   Width="70" Height="20"    />
+                        </StackPanel>
                     </GroupBox>
                 </TabItem>
                 <TabItem Header="Sensitivity Analysis" >
@@ -158,17 +163,17 @@
                     </GroupBox>
                 </TabItem>
                 <TabItem Header="Regression Analysis" >
-                    <GroupBox Header="Sellect Pseudoskin Parameter" Width="900">
+                    <GroupBox Header="Select Pseudoskin Parameter" Width="900">
                         <StackPanel>
                             <ContentControl prism:RegionManager.RegionName="RegressionRibbonTab"/>
-                            <Button Content="Regress" HorizontalAlignment="Left"/>
+                            
                         </StackPanel>
 
                     </GroupBox>
                 </TabItem>
                 <TabItem Header="Ranking" >
-                    <GroupBox Header="Rank Pseudoskin Parameters" Width="900" HorizontalAlignment="Left" Background="Wheat">
-                        <StackPanel>
+                    <GroupBox Header="Rank Pseudoskin Parameters" Width="900" HorizontalAlignment="Left" >
+                        <StackPanel Background="Wheat">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Start Value" Margin="10"/>
                                 <TextBox Width="50" Margin="10"/>
@@ -178,7 +183,7 @@
                                 <TextBox Width="50" Margin="10"/>
                             </StackPanel>
 
-                            <Button Content="Regress All" HorizontalAlignment="Left"/>
+                            <Button Content="Regress All" HorizontalAlignment="Left" Margin="10"/>
 
                         </StackPanel>
                     </GroupBox>
@@ -199,5 +204,6 @@
         </GroupBox>
 
         <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="ContentRegion" Margin="10,0,10,0"/>
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#326ba8" Height="20"/>
     </Grid>
 </Window>

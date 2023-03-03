@@ -13,7 +13,7 @@ namespace PseudoSkinClient.ChartServices
             ChatArea.XLabel(XLabel);
             ChatArea.YLabel(YLabel);
         }
-        private void AddScatterPlot(double[] xData, double[] yData)
+        public void AddScatterPlot(double[] xData, double[] yData)
         {
             
             ChatArea?.AddScatter(xData, yData, lineWidth: 2, markerSize: 5);
@@ -33,6 +33,7 @@ namespace PseudoSkinClient.ChartServices
         {
             SetTitleAndLebel();
             AddScatterPlot(XData, YData);
+            if (Y1Data?.Length > 0) AddScatterPlot(XData, Y1Data);
         }
 
         public string? XLabel { get; set; }
@@ -41,5 +42,6 @@ namespace PseudoSkinClient.ChartServices
         public Plot? ChatArea { get; set; }
         public double[]? XData { get; set; }
         public double[]? YData { get; set; }
+        public double[]? Y1Data { get; set; }
     }
 }

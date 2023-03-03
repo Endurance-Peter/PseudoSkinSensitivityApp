@@ -3,6 +3,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
+using PseudoSkinApplication;
 using PseudoSkinApplication.CreatePseudoskin;
 using PseudoSkinApplication.Events;
 using PseudoSkinDataAccess.UnitOfWorks;
@@ -61,6 +62,8 @@ namespace PseudoSkinClient.ViewModels
             set
             {
                 SetProperty(ref selectedPseudoskin, value);
+                var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
+                selectedName.Name = selectedPseudoskin;
                 eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Publish(selectedPseudoskin);
             }
         }

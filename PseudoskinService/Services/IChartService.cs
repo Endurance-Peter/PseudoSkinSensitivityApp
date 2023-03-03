@@ -9,6 +9,7 @@ namespace PseudoSkinServices.ChartServices
         string Title { get; set; }
         double[] XData { get; set; }
         double[] YData { get; set; }
+        double[] Y1Data { get; set; }
         Plot ChatArea { get; set; }
         void PlotChat();
         void SaveChat(string fileName);

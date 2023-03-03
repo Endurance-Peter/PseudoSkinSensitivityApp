@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Mvvm;
+using PseudoSkinApplication;
 using PseudoSkinClient.ChartServices;
 using PseudoSkinClient.ViewModels;
 using PseudoSkinClient.ViewModels.RegressionViewModels;
@@ -30,6 +31,7 @@ namespace PseudoSkinClient
 
             containerRegistry.RegisterDialog<CreatePseudoSkinView>();
             containerRegistry.RegisterScoped<IMediator, Mediator>();
+            containerRegistry.RegisterSingleton<SelectedPseudoskin>();
         }
         protected override Window CreateShell()
         {

@@ -1,19 +1,46 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using PseudoSkinApplication.Events;
+using System;
 
 namespace PseudoSkinClient.ViewModels.SensitivityViewModels
 {
     public class RibbonTabRegressionViewModel : BindableBase
     {
-        public RibbonTabRegressionViewModel(IRegionManager regionManager)
+        public RibbonTabRegressionViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             this.regionManager = regionManager;
+            this.eventAggregator = eventAggregator;
             AnisotropyCheckedCommand = new DelegateCommand<string>(CheckedAction);
             WellboreRadiusCheckedCommand = new DelegateCommand<string>(CheckedAction);
             PenetratioRatioCheckedCommand = new DelegateCommand<string>(CheckedAction);
             ZmCheckedCommand = new DelegateCommand<string>(CheckedAction);
+            RegressCommand = new DelegateCommand(RegressAction);
+
         }
+
+        private void RegressAction()
+        {
+            if(IsAnisotropy)
+            {
+                eventAggregator.GetEvent<RegressEvent>().Publish(nameof(IsAnisotropy));
+            }
+            else if(IsWellboreRadius)
+            {
+                eventAggregator.GetEvent<RegressEvent>().Publish(nameof(IsWellboreRadius));
+            }
+            else if (IsPenetratioRatio)
+            {
+                eventAggregator.GetEvent<RegressEvent>().Publish(nameof(IsPenetratioRatio));
+            }
+            else
+            {
+                eventAggregator.GetEvent<RegressEvent>().Publish(nameof(IsZmValue));
+            }
+        }
+
         private void CheckedAction(string parameter)
         {
             if (parameter == nameof(IsAnisotropy))
@@ -39,7 +66,9 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
         public DelegateCommand<string> WellboreRadiusCheckedCommand { get; set; }
         public DelegateCommand<string> PenetratioRatioCheckedCommand { get; set; }
         public DelegateCommand<string> ZmCheckedCommand { get; set; }
-        private string isZmValue;
+        public DelegateCommand RegressCommand { get; set; }
+
+        private bool isZmValue;
 
         private bool isAnisotropy;
         public bool IsAnisotropy
@@ -52,8 +81,8 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
                
             }
         }
-        private string isWellboreRadius;
-        public string IsWellboreRadius
+        private bool isWellboreRadius;
+        public bool IsWellboreRadius
         {
             get { return isWellboreRadius; }
             set
@@ -63,10 +92,11 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
             }
         }
 
-        private string isPenetrationRatio;
+        private bool isPenetrationRatio;
         private readonly IRegionManager regionManager;
+        private readonly IEventAggregator eventAggregator;
 
-        public string IsPenetratioRatio
+        public bool IsPenetratioRatio
         {
             get { return isPenetrationRatio; }
             set
@@ -75,7 +105,7 @@ namespace PseudoSkinClient.ViewModels.SensitivityViewModels
                
             }
         }
-        public string IsZmValue
+        public bool IsZmValue
         {
             get { return isZmValue; }
             set

@@ -14,4 +14,23 @@ namespace PseudoSkinApplication.Events
     public class ExplorerSelectedToUpdateEvent : PubSubEvent<string>
     {
     }
+    public class RegressEvent : PubSubEvent<string>
+    {
+    }
+    public class ChartEvent : PubSubEvent
+    {
+    }
+
+    public class AnisotropyChartEvent : PubSubEvent
+    {
+    }
+    public class WellboreChartEvent : PubSubEvent
+    {
+    }
+    public class PenRatioChartEvent : PubSubEvent
+    {
+    }
+    public class ZmChartEvent : PubSubEvent
+    {
+    }
 }

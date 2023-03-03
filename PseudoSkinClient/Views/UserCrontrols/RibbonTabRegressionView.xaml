@@ -7,53 +7,78 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal" Background="Wheat">
-            <RadioButton 
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Width" Value="70"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Margin" Value="0 5 5 5"/>
+                <Setter Property="Background" Value="#326ba8"/>
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#326ba8"/>
+                        <Setter Property="BorderBrush" Value="#FF3C7FB1"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Grid.Resources>
+        <StackPanel  Background="Wheat">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton 
                 Content="Anisotropy" Margin="10" Height="30" 
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                 IsChecked="{Binding IsAnisotropy, Mode=TwoWay}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <prism:InvokeCommandAction Command="{Binding AnisotropyCheckedCommand}" CommandParameter="IsAnisotropy" />
-                    </i:EventTrigger>
-                    <!--<i:EventTrigger EventName="Unchecked">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <prism:InvokeCommandAction Command="{Binding AnisotropyCheckedCommand}" CommandParameter="IsAnisotropy" />
+                        </i:EventTrigger>
+                        <!--<i:EventTrigger EventName="Unchecked">
                         <prism:InvokeCommandAction Command="{Binding Option1UncheckedCommand}" />
                     </i:EventTrigger>-->
-                </i:Interaction.Triggers>
-            </RadioButton>
-            <RadioButton 
+                    </i:Interaction.Triggers>
+                </RadioButton>
+                <RadioButton 
                 Content="Wellbore Radius" Margin="10" Height="30" 
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                 IsChecked="{Binding IsWellboreRadius, Mode=TwoWay}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <prism:InvokeCommandAction Command="{Binding WellboreRadiusCheckedCommand}" CommandParameter="IsWellboreRadius" />
-                    </i:EventTrigger>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <prism:InvokeCommandAction Command="{Binding WellboreRadiusCheckedCommand}" CommandParameter="IsWellboreRadius" />
+                        </i:EventTrigger>
 
-                </i:Interaction.Triggers>
-            </RadioButton>
-            <RadioButton 
+                    </i:Interaction.Triggers>
+                </RadioButton>
+                <RadioButton 
                 Content="Penetratio Ratio" Margin="10" Height="30" 
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                 IsChecked="{Binding IsPenetratioRatio, Mode=TwoWay}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <prism:InvokeCommandAction Command="{Binding PenetratioRatioCheckedCommand}" CommandParameter="IsPenetratioRatio"/>
-                    </i:EventTrigger>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <prism:InvokeCommandAction Command="{Binding PenetratioRatioCheckedCommand}" CommandParameter="IsPenetratioRatio"/>
+                        </i:EventTrigger>
 
-                </i:Interaction.Triggers>
-            </RadioButton>
-            <RadioButton 
+                    </i:Interaction.Triggers>
+                </RadioButton>
+                <RadioButton 
                 Content="Zm of perforation" Margin="10" Height="30" 
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                 IsChecked="{Binding IsZmValue, Mode=TwoWay}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <prism:InvokeCommandAction Command="{Binding ZmCheckedCommand}" CommandParameter="IsZmValue"/>
-                    </i:EventTrigger>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <prism:InvokeCommandAction Command="{Binding ZmCheckedCommand}" CommandParameter="IsZmValue"/>
+                        </i:EventTrigger>
 
-                </i:Interaction.Triggers>
-            </RadioButton>
+                    </i:Interaction.Triggers>
+                </RadioButton>
+            </StackPanel>
+            <Button Content="Regress" HorizontalAlignment="Left" Margin="10" 
+                                    Command="{Binding RegressCommand}"/>
         </StackPanel>
+        
     </Grid>
 </UserControl>

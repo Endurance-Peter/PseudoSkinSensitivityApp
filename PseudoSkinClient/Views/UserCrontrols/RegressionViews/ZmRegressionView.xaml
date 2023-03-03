@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:PseudoSkinClient.Views.UserCrontrols.RegressionViews"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -56,7 +57,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Zm Value"
-                                    Binding="{Binding Path=ParameterValue}"
+                                    Binding="{Binding Path=ParameterValues}"
                                     Width="auto"
                                     >
                         <DataGridTextColumn.ElementStyle>
@@ -68,7 +69,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Sensitivity"
                                     Width="0.5*"
-                                    Binding="{Binding Path=Pseudoskin}">
+                                    Binding="{Binding Path=SensititvitySkinValues}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Margin" Value="2, 0"/>
@@ -78,7 +79,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Regression"
                                     Width="0.5*"
-                                    Binding="{Binding Path=Pseudoskin}">
+                                    Binding="{Binding Path=ResgresionPredictedPseudoskinValue}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Margin" Value="2, 0"/>
@@ -89,6 +90,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <WpfPlot Grid.Column="1" Name="myChatView" Margin="20"/>
+        <ContentControl Grid.Column="1" Margin="20" prism:RegionManager.RegionName="ChartZmRegion"/>
     </Grid>
 </UserControl>
