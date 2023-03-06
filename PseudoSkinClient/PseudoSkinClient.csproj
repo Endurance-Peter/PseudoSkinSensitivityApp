@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\sendilogo1.png" />
     <None Remove="Views\UserCrontrols\checkout.png" />
+    <None Remove="Views\UserCrontrols\EvolutionChart1.png" />
+    <None Remove="Views\UserCrontrols\graphPlot.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +28,16 @@
     <Resource Include="Add16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\sendilogo1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Views\UserCrontrols\checkout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\UserCrontrols\EvolutionChart1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\UserCrontrols\graphPlot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -41,6 +41,7 @@ namespace PseudoSkinClient
 
             regionManager.RegisterViewWithRegion<ScarterChartView>("ScarterChartRegion");
             regionManager.RegisterViewWithRegion<PieChartView>("PieChartRegion");
+            regionManager.RegisterViewWithRegion<ExplorerView>("ExplorerRegion");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

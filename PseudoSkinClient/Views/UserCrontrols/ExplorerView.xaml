@@ -11,7 +11,7 @@
             <Style TargetType="ListBox">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="BorderBrush" Value="#ccc" />
-                <Setter Property="Background" Value="White" />
+                <Setter Property="Background" Value="#f7f7f7" />
                 <Setter Property="Padding" Value="5" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="SelectionMode" Value="Single" />
@@ -32,7 +32,7 @@
                                                 <Setter Property="Foreground" Value="White" />
                                             </Trigger>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="Background" Value="#eee" />
+                                                <Setter Property="Background" Value="#f7f7f7" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -44,12 +44,24 @@
             </Style>
 
         </Grid.Resources>
-        <Border BorderBrush="AliceBlue" BorderThickness="2">
-            <ListBox ItemsSource="{Binding FetchedPseudoskins}" SelectedItem="{Binding SelectedPseudoskin}">
 
-            </ListBox>
-        </Border>
+        <ScrollViewer>
+            <StackPanel>
+                <ListBox ItemsSource="{Binding FetchedPseudoskins}" BorderThickness="0"
+                         SelectedItem="{Binding SelectedPseudoskin}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="EvolutionChart1.png" Height="15" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
         
+
 
     </Grid>
 </UserControl>

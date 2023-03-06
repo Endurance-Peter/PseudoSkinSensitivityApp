@@ -24,54 +24,68 @@ namespace PseudoSkinClient.ViewModels
             CreatePseudoskinCommand = new DelegateCommand(CreatePseudoskinAction);
             //OpenExplorerCommand = new DelegateCommand(OpenExplorerAction);
             this.eventAggregator = eventAggregator;
-            eventAggregator.GetEvent<CreatePseudoskinResultEvent>().Subscribe(AddNewCreatedSkinToListAction);
-        }
-        public void OpenExplorerAction()
-        {
-            unitOfWork = unitOfWork ?? containerProvider.Resolve<IUnitOfWork>();
-            PupolateExplorerView();
+            //eventAggregator.GetEvent<CreatePseudoskinResultEvent>().Subscribe(AddNewCreatedSkinToListAction);
+            eventAggregator.GetEvent<ExplorerSelectedPseudoskinEvent>().Subscribe(SelectedPseudoskinEventAction);
         }
 
-        private void AddNewCreatedSkinToListAction(Result result)
+        private void SelectedPseudoskinEventAction(string selectedPseudoskin)
         {
-            FetchedPseudoskins.Add(result.Name);
+            CurrentSkinName = selectedPseudoskin;
         }
 
-        private void PupolateExplorerView()
-        {
-            if(FetchedPseudoskins.Count == 0)
-            {
-                var fetchskins = unitOfWork.PseudoSkin.GetAll();
-                var skinNames = fetchskins.Result.Select(x => x.Name);
-
-                foreach (var name in skinNames)
-                {
-                    FetchedPseudoskins?.Add(name);
-                }
-            }
-        }
-
-        private string selectedPseudoskin;
-        public string SelectedPseudoskin
-        {
-            get
-            {
-                return selectedPseudoskin;
-            }
-            set
-            {
-                SetProperty(ref selectedPseudoskin, value);
-                var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
-                selectedName.Name = selectedPseudoskin;
-                //eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Publish(selectedPseudoskin);
-            }
-        }
-        public ObservableCollection<string> FetchedPseudoskins { get; set; } = new ObservableCollection<string>();
-        //private void SelectedPseudoskinAction(string selectectedSkin)
+        //public void OpenExplorerAction()
         //{
-        //    selectedPseudoskin = selectectedSkin;
-        //    eventAggregator.GetEvent<ExplorerSelectedToUpdateEvent>().Publish(selectedPseudoskin);
+        //    unitOfWork = unitOfWork ?? containerProvider.Resolve<IUnitOfWork>();
+        //    PupolateExplorerView();
         //}
+
+        //private void AddNewCreatedSkinToListAction(Result result)
+        //{
+        //    FetchedPseudoskins.Add(result.Name);
+        //}
+
+        //private void PupolateExplorerView()
+        //{
+        //    if(FetchedPseudoskins.Count == 0)
+        //    {
+        //        var fetchskins = unitOfWork.PseudoSkin.GetAll();
+        //        var skinNames = fetchskins.Result.Select(x => x.Name);
+
+        //        foreach (var name in skinNames)
+        //        {
+        //            FetchedPseudoskins?.Add(name);
+        //        }
+        //        SelectedPseudoskin = FetchedPseudoskins[0];
+        //    }
+        //}
+
+        //private string selectedPseudoskin;
+        //public string SelectedPseudoskin
+        //{
+        //    get
+        //    {
+        //        return selectedPseudoskin;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref selectedPseudoskin, value);
+        //        var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
+        //        selectedName.Name = selectedPseudoskin;
+        //        CurrentSkinName = selectedPseudoskin;
+        //    }
+        //}
+
+        private string currentSkinName;
+        public string CurrentSkinName
+        {
+            get { return currentSkinName; }
+            set 
+            { 
+                SetProperty(ref currentSkinName, value); 
+            }
+        }
+        //public ObservableCollection<string> FetchedPseudoskins { get; set; } = new ObservableCollection<string>();
+        
 
         private void CreatePseudoskinAction()
         {

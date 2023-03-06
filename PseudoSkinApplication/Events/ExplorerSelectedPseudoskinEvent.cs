@@ -42,7 +42,6 @@ namespace PseudoSkinApplication.Events
     public class BarChartEvent : PubSubEvent
     {
     }
-
     public class RankingResultEvent : PubSubEvent<Dictionary<SensititvityVariable, RunRegressionDto>>
     {
     }

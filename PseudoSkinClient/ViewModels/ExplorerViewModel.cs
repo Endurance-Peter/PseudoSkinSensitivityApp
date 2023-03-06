@@ -1,7 +1,9 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using PseudoSkinApplication;
 using PseudoSkinApplication.CreatePseudoskin;
 using PseudoSkinApplication.Events;
 using PseudoSkinDataAccess.UnitOfWorks;
@@ -16,11 +18,13 @@ namespace PseudoSkinClient.ViewModels
 {
     public class ExplorerViewModel : BindableBase
     {
+        private readonly IContainerProvider containerProvider;
         private readonly IUnitOfWork unitOfWork;
         private readonly IEventAggregator eventAggregator;
 
-        public ExplorerViewModel(IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
+        public ExplorerViewModel(IContainerProvider containerProvider, IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
         {
+            this.containerProvider = containerProvider;
             this.unitOfWork = unitOfWork;
             this.eventAggregator = eventAggregator;
             PupolateExplorerView();
@@ -30,16 +34,21 @@ namespace PseudoSkinClient.ViewModels
         private void AddNewCreatedSkinToListAction(Result result)
         {
             FetchedPseudoskins.Add(result.Name);
+            SelectedPseudoskin = result.Name;
         }
 
         private void PupolateExplorerView()
         {
-            var fetchskins = unitOfWork.PseudoSkin.GetAll();
-            var skinNames = fetchskins.Result.Select(x => x.Name);
-
-            foreach (var name in skinNames)
+            if (FetchedPseudoskins.Count == 0)
             {
-                FetchedPseudoskins.Add(name);
+                var fetchskins = unitOfWork.PseudoSkin.GetAll();
+                var skinNames = fetchskins.Result.Select(x => x.Name);
+
+                foreach (var name in skinNames)
+                {
+                    FetchedPseudoskins?.Add(name);
+                }
+                SelectedPseudoskin = FetchedPseudoskins[0];
             }
         }
 
@@ -54,6 +63,8 @@ namespace PseudoSkinClient.ViewModels
             { 
                 SetProperty(ref selectedPseudoskin, value);
                 eventAggregator.GetEvent<ExplorerSelectedPseudoskinEvent>().Publish(selectedPseudoskin);
+                var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
+                selectedName.Name = selectedPseudoskin;
             }
         }
         public ObservableCollection<string> FetchedPseudoskins { get; set; } = new ObservableCollection<string>();

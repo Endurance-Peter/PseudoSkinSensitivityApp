@@ -7,9 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Image Source="checkout.png" Stretch="Uniform" Opacity="0.5" 
-                   VerticalAlignment="Center" Height="100" Width="150"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Image Source="graphPlot.png" Stretch="Uniform"  Opacity="0.7"
+                   VerticalAlignment="Center" Height="300" Width="350"/>
+            <TextBlock Text="Create Pseudoskin" HorizontalAlignment="Center" Margin="20" 
+                       Foreground="LightBlue" FontWeight="Bold" FontSize="20"/>
         </StackPanel>
         
     </Grid>

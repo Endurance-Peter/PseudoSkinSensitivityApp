@@ -32,7 +32,7 @@ namespace PseudoSkinClient.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _viewmodel.OpenExplorerAction();
+            //_viewmodel.OpenExplorerAction();
             explorerItems.Visibility = explorerItems.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
