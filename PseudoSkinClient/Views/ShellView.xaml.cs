@@ -33,7 +33,14 @@ namespace PseudoSkinClient.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //_viewmodel.OpenExplorerAction();
+            var grid = (Grid) contentRegion.Parent;
             explorerItems.Visibility = explorerItems.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+           
+            if (explorerItems.Visibility == Visibility.Collapsed)
+            {
+                Grid.SetColumn(contentRegion, 2);
+                Grid.SetColumnSpan(contentRegion, 3);
+            }
         }
     }
 }

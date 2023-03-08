@@ -37,7 +37,7 @@ namespace PseudoSkinClient.ViewModels.RegressionViewModels
             chartService.YArray.Clear();
 
             chartService.Title = "Regressed Penetration Ratio";
-            chartService.XLabel = "Anisotropy Value";
+            chartService.XLabel = "Penetration Ratio Value";
             chartService.YLabel = "Pseudoskin Value";
             chartService.XData = x;
             chartService.YArray.Add("Sensitivity", y);

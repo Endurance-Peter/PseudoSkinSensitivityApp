@@ -45,7 +45,7 @@ namespace PseudoSkinClient.ViewModels.RankingViewModels
             chartService.YArray.Add("Anisotropy", x1);
             chartService.YArray.Add("Wellbore Radius", x2);
             chartService.YArray.Add("Penetration Ratio", x3);
-            chartService.YArray.Add("Zm Valu", x4);
+            chartService.YArray.Add("Zm Value", x4);
             chartService.Labels = new[] { "Anisotropy", "Wellbore Radius", "Penetration Ratio", "Zm Value" };
 
             eventAggregator.GetEvent<BarChartEvent>().Publish();

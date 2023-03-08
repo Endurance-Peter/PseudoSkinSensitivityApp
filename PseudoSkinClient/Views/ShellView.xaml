@@ -100,7 +100,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -109,7 +111,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TabControl Margin="10" Height="130" HorizontalAlignment="Stretch" Grid.Column="1" Grid.ColumnSpan="2">
+        <TabControl Margin="0,5,5,5" Height="130" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2">
             <TabItem Header="Home" >
                 <GroupBox Header="Create Pseudoskin">
                     <StackPanel Background="Wheat">
@@ -121,14 +123,14 @@
             </TabItem>
             <TabItem Header="Sensitivity Analysis" >
                 <GroupBox Header="Select Pseudoskin Parameter">
-                    <StackPanel>
+                    <StackPanel Background="Wheat">
                         <ContentControl prism:RegionManager.RegionName="SensitivityRibbonTab"/>
                     </StackPanel>
                 </GroupBox>
             </TabItem>
             <TabItem Header="Regression Analysis" >
                 <GroupBox Header="Select Pseudoskin Parameter">
-                    <StackPanel>
+                    <StackPanel Background="Wheat">
                         <ContentControl prism:RegionManager.RegionName="RegressionRibbonTab"/>
 
                     </StackPanel>
@@ -141,27 +143,31 @@
                 </GroupBox>
             </TabItem>
             <TabItem Header="View Results" >
-                <GroupBox Header="Create Pseudoskin">
-
+                <GroupBox Header="Details">
+                    <StackPanel Background="Wheat">
+                        
+                    </StackPanel>
                 </GroupBox>
             </TabItem>
         </TabControl>
         <Image Source="sendilogo1.png" Width="150" Height="150" Margin="10,15,0,5"
-               Stretch="Uniform" Grid.Column="0" 
+               Stretch="Uniform" Grid.Column="1"
                Grid.Row="0"/>
 
-        <Button Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Click="Button_Click"  HorizontalAlignment="Left"
+        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Click="Button_Click"  HorizontalAlignment="Left"
                 Background="#f7f7f7" Margin="10,0,0,0" BorderBrush="LightGray" Height="25">
             <Path Data="M0,0 L100,0 M0,10 L100,10 M0,20 L100,20" Stroke="#326ba8" StrokeThickness="1.5"  Width="60"/>
         </Button>
-
-        <GroupBox Header="Item Explorer" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Gray" 
+        <Border Grid.RowSpan="3" Grid.Column="4" Background="#326ba8" Width="20"/>
+        <Border Grid.RowSpan="3" Grid.Column="0" Background="#326ba8" Width="20"/>
+       
+        <GroupBox Header="Item Explorer" Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" 
                   Margin="5,0,5,5" x:Name="explorerItems">
             <ContentControl prism:RegionManager.RegionName="ExplorerRegion"/>
         </GroupBox>
 
-        <ContentControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" prism:RegionManager.RegionName="ContentRegion" Margin="10,0,10,0"/>
-        <Border Grid.Row="3" Grid.ColumnSpan="3" Background="#326ba8" Height="30">
+        <ContentControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" prism:RegionManager.RegionName="ContentRegion" Margin="10,0,10,0" Name="contentRegion"/>
+        <Border Grid.Row="3" Grid.ColumnSpan="5" Background="#326ba8" Height="30">
             <TextBlock Foreground="White" HorizontalAlignment="Right" Margin="0,5,30,5">
                 <Run Text="Current Psuedoskin: - "/>
                 <Run Text="{Binding CurrentSkinName}"/>
