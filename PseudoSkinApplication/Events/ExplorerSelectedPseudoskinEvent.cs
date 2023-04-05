@@ -42,6 +42,23 @@ namespace PseudoSkinApplication.Events
     public class BarChartEvent : PubSubEvent
     {
     }
+    
+    public class OpenDetailsEvent : PubSubEvent
+    {
+    }
+
+    public class ClearParameterResultEvent : PubSubEvent
+    {
+        public void Publish(object clearParameterResultEventAction)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ParameterResultEvent : PubSubEvent<PseudoSkin>
+    {
+    }
+
     public class RankingResultEvent : PubSubEvent<Dictionary<SensititvityVariable, RunRegressionDto>>
     {
     }

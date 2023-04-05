@@ -38,8 +38,13 @@ namespace PseudoSkinClient.Views
            
             if (explorerItems.Visibility == Visibility.Collapsed)
             {
-                Grid.SetColumn(contentRegion, 2);
-                Grid.SetColumnSpan(contentRegion, 3);
+                Grid.SetColumn(contentRegion, 1);
+                Grid.SetColumnSpan(contentRegion, 4);
+            }
+            else
+            {
+                Grid.SetColumn(contentRegion, 3);
+                Grid.SetColumnSpan(contentRegion, 2);
             }
         }
     }

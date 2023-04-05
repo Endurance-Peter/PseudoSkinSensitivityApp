@@ -103,6 +103,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -111,11 +112,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TabControl Margin="0,5,5,5" Height="130" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2">
+        <TabControl Margin="0,5,5,5" Height="130" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="3">
             <TabItem Header="Home" >
                 <GroupBox Header="Create Pseudoskin">
-                    <StackPanel Background="Wheat">
-                        <Button Content="Create"  Command="{Binding CreatePseudoskinCommand}"
+                    <StackPanel Background="Wheat" Orientation="Horizontal">
+                        <Button Content="New"  Command="{Binding CreatePseudoskinCommand}"
+                            HorizontalAlignment="Left"
+                             Margin="10,20,0,0"   Width="70" Height="20"/>
+                        <Button Content="View Details"  Command="{Binding ViewDetailsCommand}"
                             HorizontalAlignment="Left"
                              Margin="10,20,0,0"   Width="70" Height="20"/>
                     </StackPanel>
@@ -158,7 +162,7 @@
                 Background="#f7f7f7" Margin="10,0,0,0" BorderBrush="LightGray" Height="25">
             <Path Data="M0,0 L100,0 M0,10 L100,10 M0,20 L100,20" Stroke="#326ba8" StrokeThickness="1.5"  Width="60"/>
         </Button>
-        <Border Grid.RowSpan="3" Grid.Column="4" Background="#326ba8" Width="20"/>
+        <Border Grid.RowSpan="3" Grid.Column="5" Background="#326ba8" Width="20"/>
         <Border Grid.RowSpan="3" Grid.Column="0" Background="#326ba8" Width="20"/>
        
         <GroupBox Header="Item Explorer" Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" 
@@ -166,8 +170,25 @@
             <ContentControl prism:RegionManager.RegionName="ExplorerRegion"/>
         </GroupBox>
 
-        <ContentControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" prism:RegionManager.RegionName="ContentRegion" Margin="10,0,10,0" Name="contentRegion"/>
-        <Border Grid.Row="3" Grid.ColumnSpan="5" Background="#326ba8" Height="30">
+        <ScrollViewer Grid.Row="2"  Grid.Column="3" Grid.ColumnSpan="2" Name="contentRegion">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <ContentControl Grid.Column="0"
+                            prism:RegionManager.RegionName="ContentRegion" 
+                            Margin="10,0,10,0"/>
+
+                <ContentControl Grid.Column="1" 
+                            prism:RegionManager.RegionName="ContentResultRegion" 
+                            Margin="10,0,10,0"/>
+            </Grid>
+            
+           
+        </ScrollViewer>
+        <Border Grid.Row="3" Grid.ColumnSpan="6" Background="#326ba8" Height="30">
             <TextBlock Foreground="White" HorizontalAlignment="Right" Margin="0,5,30,5">
                 <Run Text="Current Psuedoskin: - "/>
                 <Run Text="{Binding CurrentSkinName}"/>

@@ -64,6 +64,7 @@ namespace PseudoSkinClient
 
             //containerRegistry.RegisterForNavigation<RegressionView>("RegressionView");
             containerRegistry.RegisterForNavigation<CreatePseudoSkinView>("CreatePseudoSkinView");
+            containerRegistry.RegisterForNavigation<PseudoskinParameterView>("PseudoskinParameterView");
            
         }
     }

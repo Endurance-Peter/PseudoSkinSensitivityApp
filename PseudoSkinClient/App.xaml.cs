@@ -73,6 +73,8 @@ namespace PseudoSkinClient
 
             ViewModelLocationProvider.Register<RankingRibbonView, RankingRiboonViewModel>();
             ViewModelLocationProvider.Register<RankingView, RankingViewModel>();
+
+            ViewModelLocationProvider.Register<PseudoskinParameterView, PseudoskinParameterViewModel>();
         }
     }
 }

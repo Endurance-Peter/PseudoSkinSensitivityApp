@@ -62,7 +62,11 @@ namespace PseudoSkinClient.ViewModels
             set 
             { 
                 SetProperty(ref selectedPseudoskin, value);
+
+                var pseudoskin = unitOfWork.PseudoSkin.GetByName(x => x.Name == selectedPseudoskin).Result;
                 eventAggregator.GetEvent<ExplorerSelectedPseudoskinEvent>().Publish(selectedPseudoskin);
+                eventAggregator.GetEvent<ParameterResultEvent>().Publish(pseudoskin);
+
                 var selectedName = containerProvider.Resolve<SelectedPseudoskin>();
                 selectedName.Name = selectedPseudoskin;
             }

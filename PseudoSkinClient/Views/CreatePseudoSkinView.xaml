@@ -33,6 +33,23 @@
                 <Setter Property="Margin" Value="0 5 5 5"/>
                 <Setter Property="Background" Value="#326ba8"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        Background="{TemplateBinding Background}" 
+                        Padding="{TemplateBinding Padding}" 
+                        SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+               
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Background" Value="#326ba8"/>
@@ -47,58 +64,57 @@
             </Style>
 
         </Grid.Resources>
-        <ScrollViewer>
-            <StackPanel Margin="15" Height="auto">
-                <GroupBox
+        <StackPanel Margin="15" Height="auto">
+            <GroupBox
                   BorderBrush="LightGray" Header="Name" Margin="2"
                               BorderThickness="1" Padding="0,5,5,0">
-                    <TextBox Text="{Binding Name}"/>
-                </GroupBox>
+                <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+            </GroupBox>
 
-                <GroupBox
+            <GroupBox
                   BorderBrush="LightGray" Header="Model" Margin="2"
                               BorderThickness="1" Padding="0,5,5,0">
-                    <TextBlock Text="Ode Model"/>
-                </GroupBox>
+                <TextBlock Text="Ode Model"/>
+            </GroupBox>
 
-                <GroupBox
+            <GroupBox
                   BorderBrush="LightGray" Header="Reservoir Parameters" Margin="2"
                               BorderThickness="1" Padding="0,5,5,0">
-                    <StackPanel>
-                        <TextBlock Text="Vertical Permeability (kv, mD)" Margin="0,2"/>
-                        <TextBox Text="{Binding VerticalPermeability}"/>
-                        <TextBlock Text="Horizontal Permeability (kv, mD)" Margin="0,2"/>
-                        <TextBox Text="{Binding HorizontalPermeability}"/>
-                        <TextBlock Text="Reservoir Thickness (h, ft)" Margin="0,2"/>
-                        <TextBox Text="{Binding ReservoirThickness}"/>
-                    </StackPanel>
-                </GroupBox>
+                <StackPanel>
+                    <TextBlock Text="Vertical Permeability (kv, mD)" Margin="0,2"/>
+                    <TextBox Text="{Binding VerticalPermeability, Mode=TwoWay}"/>
+                    <TextBlock Text="Horizontal Permeability (kv, mD)" Margin="0,2"/>
+                    <TextBox Text="{Binding HorizontalPermeability, Mode=TwoWay}"/>
+                    <TextBlock Text="Reservoir Thickness (h, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding ReservoirThickness, Mode=TwoWay}"/>
+                </StackPanel>
+            </GroupBox>
 
-                <GroupBox
+            <GroupBox
                   BorderBrush="LightGray" Header="Well Parameters" Margin="2"
                               BorderThickness="1" Padding="0,5,5,0">
-                    <StackPanel>
-                        <TextBlock Text="Wellbore Radius (rw, ft)" Margin="0,2"/>
-                        <TextBox Text="{Binding WellboreRadius}"/>
-                        <TextBlock Text="Length of Perforated Interver (hp, ft)" Margin="0,2"/>
-                        <TextBox Text="{Binding LenghtOfPerforationInterval}"/>
-                        <TextBlock Text="Distance between top of sand to top of perforation (y, ft)" Margin="0,2"/>
-                        <TextBox Text="{Binding DistanceFromTopOfSandToTopOfPerforation}"/>
-                    </StackPanel>
-                </GroupBox>
-                <TextBlock Text="***Fill all entery" 
+                <StackPanel>
+                    <TextBlock Text="Wellbore Radius (rw, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding WellboreRadius, Mode=TwoWay}"/>
+                    <TextBlock Text="Length of Perforated Interver (hp, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding LenghtOfPerforationInterval, Mode=TwoWay }"/>
+                    <TextBlock Text="Distance between top of sand to top of perforation (y, ft)" Margin="0,2"/>
+                    <TextBox Text="{Binding DistanceFromTopOfSandToTopOfPerforation, Mode=TwoWay}"/>
+                </StackPanel>
+            </GroupBox>
+            <TextBlock Text="***Fill all entery" 
                        Visibility="Collapsed" 
                        Foreground="Red" FontStyle="Italic"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Calculate" Command="{Binding CalculateCommand}"/>
-                    <Button Content="Save" Command="{Binding SaveCommand}"/>
-                </StackPanel>
-                <GroupBox
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Calculate" Command="{Binding CalculateCommand}"/>
+                <Button Content="Save" Command="{Binding SaveCommand}"/>
+                <Button Content="Details" Command="{Binding DetailsCommand}" Width="50" />
+            </StackPanel>
+            <GroupBox
                   BorderBrush="LightGray" Header="Pseudoskin Result" Margin="2" Foreground="Red"
                               BorderThickness="1" Padding="0,5,5,0">
-                    <TextBox Text="{Binding PseudoskinResult, Mode=TwoWay}" IsEnabled="False"/>
-                </GroupBox>
-            </StackPanel>
-        </ScrollViewer>
+                <TextBox Text="{Binding PseudoskinResult, Mode=TwoWay}" IsEnabled="False"/>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </UserControl>
